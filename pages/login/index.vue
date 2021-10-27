@@ -1,5 +1,5 @@
 <template>
   <v-row justify="center" align="center">
-        Hola este es el sistema de notas
+       Indique su rut
   </v-row>
 </template>
