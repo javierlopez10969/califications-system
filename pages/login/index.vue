@@ -1,5 +1,5 @@
 <template>
   <v-row justify="center" align="center">
-       Indique su rut
+       <HomeLoginForm />
   </v-row>
 </template>

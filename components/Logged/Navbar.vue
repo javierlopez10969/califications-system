@@ -1,14 +1,15 @@
 <template>
   <div>
     <v-app-bar dense>
-      <v-btn href="/" icon>
-        <v-icon>mdi-home</v-icon>
-      </v-btn>
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
       <v-toolbar-title>Sistema de notas</v-toolbar-title>
 
       <v-spacer></v-spacer>
-      <v-btn href="/login" rounded color="primary" dark> Iniciar Sesión </v-btn>
+      <v-btn icon>
+        <v-icon>mdi-bell</v-icon>
+      </v-btn>
+      <v-btn href="/login" rounded color="red"> Cerrar sesión</v-btn>
       <v-menu left bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-bind="attrs" v-on="on">
