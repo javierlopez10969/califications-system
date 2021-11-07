@@ -11,7 +11,7 @@
       :absolute="!fixed"
       app
     >
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+      <span>&copy; {{ new Date().getFullYear() }} USACH</span>
     </v-footer>
   </v-app>
 </template>
