@@ -1,8 +1,16 @@
 <template>
-    <LoggedCalifications />
+  <div>
+    Tus cursos son : 
+    <v-spacer></v-spacer>
+    <LoggedCourses :cursos="cursos" />
+
+  </div>
 </template>
 <script>
+import Courses from "../../components/Logged/Courses.vue";
 export default {
-    layout : "logged"
-}
+  components: { Courses },
+  layout: "logged",
+  props: ['cursos'],
+};
 </script>

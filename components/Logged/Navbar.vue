@@ -7,22 +7,7 @@
       fixed
       app
     >
-      <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
+    <LoggedSidebar />
     </v-navigation-drawer>
     <v-app-bar dense :clipped-left="clipped" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
@@ -58,24 +43,15 @@
 <script>
 import Notification from "./Notification.vue";
 export default {
+  props :[
+    'cursos'
+  ],
   components: { Notification },
   data() {
     return {
       clipped: false,
       drawer: true,
       fixed: false,
-      items: [
-        {
-          icon: "mdi-account-group",
-          title: "Mis Cursos",
-          to: "/cursos",
-        },
-        {
-          icon: "mdi-bookmark-multiple-outline",
-          title: "Evaluaciones",
-          to: "/evaluaciones",
-        },
-      ],
       miniVariant: false,
       right: true,
       rightDrawer: false,

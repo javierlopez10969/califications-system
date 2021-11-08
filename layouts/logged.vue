@@ -1,9 +1,9 @@
 <template>
   <v-app>
-    <LoggedNavbar />
+    <LoggedNavbar :cursos="cursos" />
     <v-main>
       <v-container>
-        <Nuxt />
+        <NuxtChild :cursos="cursos"/>
       </v-container>
     </v-main>
     <v-footer :absolute="!fixed" app>
@@ -16,25 +16,13 @@
 export default {
   data() {
     return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      items: [
-        {
-          icon: "mdi-apps",
-          title: "Welcome",
-          to: "/",
-        },
-        {
-          icon: "mdi-chart-bubble",
-          title: "Inspire",
-          to: "/inspire",
-        },
+      cursos: [
+        { ID: 1, nombre: "Calculo 1" },
+        { ID: 2,nombre: "Algebra 1" },
+        { ID: 3,nombre: "Fisica 1" },
+        { ID: 4,nombre: "Taller de ingineria" },
       ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: "Vuetify.js",
+      string:"Hello world"
     };
   },
 };
