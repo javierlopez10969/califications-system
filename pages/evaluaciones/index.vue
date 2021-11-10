@@ -1,6 +1,6 @@
 <template>
     <div>
-        <LoggedCalendar />
+        <CoursesCalendar />
     </div>
 </template>
 <script>

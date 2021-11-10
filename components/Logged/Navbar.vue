@@ -7,7 +7,7 @@
       fixed
       app
     >
-    <LoggedSidebar />
+    <LoggedSidebar :cursos="cursos" />
     </v-navigation-drawer>
     <v-app-bar dense :clipped-left="clipped" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
