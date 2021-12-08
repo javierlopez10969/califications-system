@@ -1,6 +1,6 @@
 <template>
   <div>
-    Hola tu {{curso}}
+    Hola tu Curso es : {{curso.name}}
   </div>
 </template>
 

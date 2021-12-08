@@ -19,7 +19,6 @@
       </v-btn>
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <v-toolbar-title>Sistema de notas</v-toolbar-title>
 
       <v-spacer></v-spacer>
 

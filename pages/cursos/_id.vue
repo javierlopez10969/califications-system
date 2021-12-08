@@ -25,7 +25,7 @@ export default {
     findCurso() {
       let id = +this.$route.params.id;
       console.log(id);
-      this.curso = this.cursos.find((curso) => curso.ID === id);
+      this.curso = this.cursos.find((curso) => curso.id === id);
     },
   },
 };

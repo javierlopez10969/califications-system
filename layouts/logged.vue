@@ -14,18 +14,26 @@
 
 <script>
 export default {
+  created: function () {
+    console.log("API URL :" + process.env.baseUrl);
+    this.$axios
+      .get(process.env.baseUrl + "courses/")
+      .then((res) => {
+        var cursos = res.data;
+        this.cursos = cursos;
+        console.log(this.cursos);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
   data() {
     return {
+      ip: 0,
+      cursos: [],
       clipped: false,
       drawer: false,
       fixed: false,
-      cursos: [
-        { ID: 1, nombre: "Calculo 1" },
-        { ID: 2, nombre: "Algebra 1" },
-        { ID: 3, nombre: "Fisica 1" },
-        { ID: 4, nombre: "Taller de ingineria" },
-      ],
-      string: "Hello world",
     };
   },
 };
