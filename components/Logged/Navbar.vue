@@ -7,7 +7,7 @@
       fixed
       app
     >
-    <LoggedSidebar :cursos="cursos" />
+    <LoggedSidebar :cursos="cursos" :user="user" />
     </v-navigation-drawer>
     <v-app-bar dense :clipped-left="clipped" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
@@ -43,7 +43,7 @@
 import Notification from "./Notification.vue";
 export default {
   props :[
-    'cursos'
+    'cursos','user'
   ],
   components: { Notification },
   data() {

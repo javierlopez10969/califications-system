@@ -2,6 +2,23 @@
   <div>
     <v-list>
       <v-list>
+        <v-list-item>
+          <v-list-item-avatar>
+            <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
+          </v-list-item-avatar>
+        </v-list-item>
+        <v-list-item link>
+          <v-list-item-content>
+            <v-list-item-title class="text-h6">
+              John Leider
+            </v-list-item-title>
+            <v-list-item-subtitle>{{user.email}}</v-list-item-subtitle>
+          </v-list-item-content>
+
+          <v-list-item-action>
+            <v-icon>mdi-menu-down</v-icon>
+          </v-list-item-action>
+        </v-list-item>
         <v-list-item to="/landing">
           <v-list-item-icon>
             <v-icon>mdi-home</v-icon>
@@ -80,7 +97,7 @@
 
 <script>
 export default {
-  props: ["cursos", "registro"],
+  props: ["cursos", "registro","user"],
   data: () => ({
     opciones: [
       ["Ver notas", "mdi-account-multiple-outline"],
@@ -93,6 +110,7 @@ export default {
         to: "/evaluaciones",
       },
     ],
+    user: {},
   }),
 };
 </script>

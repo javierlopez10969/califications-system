@@ -1,14 +1,25 @@
 <template>
-  <v-form ref="form" v-model="valid" lazy-validation>
+  <v-form ref="form" class="form-signin" @submit.prevent="login" lazy-validation>
     <v-text-field
-      v-model="RUT"
-      :rules="rutRules"
+      v-model="user.username"
+      :rules="emailRules"
       :counter="12"
-      label="RUT"
+      label="Correo institucional"
       required
     ></v-text-field>
-    <v-text-field type="password" label="Clave"></v-text-field>
-    <v-btn href="/landing" class="text-center" rounded color="primary" dark block>
+    <v-text-field
+      v-model="user.password"
+      type="password"
+      label="Clave"
+    ></v-text-field>
+    <v-btn
+      type="submit" 
+      class="text-center"
+      rounded
+      color="primary"
+      dark
+      block
+    >
       Ingresar
     </v-btn>
     <v-spacer></v-spacer>
@@ -26,8 +37,10 @@
 export default {
   data: () => ({
     valid: true,
-    RUT: "",
-    password: "",
+    user: {
+      username: "",
+      password: "",
+    },
     rutRules: [
       (v) => !!v || "Rut es necesario",
       (v) => v.length <= 12 || "Rut Incompleto",
@@ -52,6 +65,23 @@ export default {
     },
     resetValidation() {
       this.$refs.form.resetValidation();
+    },
+    login() {
+      this.$axios.post(process.env.baseUrl + "login/", this.user).then(
+        (res) => {
+          //if successfull
+          if (res.status === 200) {
+            localStorage.setItem("token", res.data.token);
+            console.log(res.data)
+            this.$router.push({ path: "/landing" });
+          }
+        },
+        (err) => {
+          alert(err.response.data.error);
+          console.log(err.response);
+          this.error = err.response.data.mensaje;
+        }
+      );
     },
   },
 };

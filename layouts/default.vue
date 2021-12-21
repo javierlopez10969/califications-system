@@ -4,7 +4,7 @@
     <HomeNavbar />
     <v-main>
       <v-container>
-        <Nuxt />
+        <Nuxt :user.sync="user"/>
       </v-container>
     </v-main>
     <v-footer
@@ -20,6 +20,7 @@
 export default {
   data () {
     return {
+      user : {},
       clipped: false,
       drawer: false,
       fixed: false,
