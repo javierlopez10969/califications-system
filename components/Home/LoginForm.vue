@@ -1,35 +1,36 @@
 <template>
-  <v-form ref="form" class="form-signin" @submit.prevent="login" lazy-validation>
-    <v-text-field
-      v-model="user.username"
-      :rules="emailRules"
-      :counter="12"
-      label="Correo institucional"
-      required
-    ></v-text-field>
-    <v-text-field
-      v-model="user.password"
-      type="password"
-      label="Clave"
-    ></v-text-field>
-    <v-btn
-      type="submit" 
-      class="text-center"
-      rounded
-      color="primary"
-      dark
-      block
-    >
-      Ingresar
-    </v-btn>
-    <v-spacer></v-spacer>
-    <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">
-      Validate
-    </v-btn>
+  <v-form
+    ref="form"
+    class="form-signin"
+    @submit.prevent="login"
+    lazy-validation
+  >
+    <v-card width="500px" height="200px" elevation="24" outlined shaped>
+      <v-container fluid>
+        <v-text-field
+          v-model="user.username"
+          :rules="emailRules"
+          label="Correo institucional"
+          required
+        ></v-text-field>
 
-    <v-btn color="error" class="mr-4" @click="reset"> Reset Form </v-btn>
-
-    <v-btn color="warning" @click="resetValidation"> Reset Validation </v-btn>
+        <v-text-field
+          v-model="user.password"
+          type="password"
+          label="Clave"
+        ></v-text-field>
+        <v-btn
+          type="submit"
+          class="success mx-0 mt-3 text-center"
+          rounded
+          color="primary"
+          dark
+          block
+        >
+          Ingresar
+        </v-btn>
+      </v-container>
+    </v-card>
   </v-form>
 </template>
 
@@ -67,12 +68,12 @@ export default {
       this.$refs.form.resetValidation();
     },
     login() {
-      this.$axios.post(process.env.baseUrl + "login/", this.user).then(
+      this.$axios.post(process.env.baseUrl + "users/login/", this.user).then(
         (res) => {
           //if successfull
           if (res.status === 200) {
             localStorage.setItem("token", res.data.token);
-            console.log(res.data)
+            console.log(res.data);
             this.$router.push({ path: "/landing" });
           }
         },

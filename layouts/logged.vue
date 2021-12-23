@@ -1,6 +1,11 @@
 <template>
   <v-app>
-    <LoggedNavbar :cursos="cursos" :user="user" />
+    <LoggedNavbar
+      :cursos="cursos"
+      :user="user"
+      :perfil="perfil"
+      :registro="registro"
+    />
     <v-main>
       <v-container>
         <NuxtChild :cursos="cursos" :user.sync="user" />
@@ -27,16 +32,16 @@ export default {
   methods: {
     async getUserData() {
       this.$axios
-        .post(process.env.baseUrl + "getuser/", {
-          token: localStorage.getItem("token"),
-        })
+        .post(process.env.baseUrl + "users/getuser/", 
+        {token: localStorage.getItem("token")})
         .then(
           (res) => {
             //if successfull
             if (res.status === 200) {
               console.log(res.data);
               this.user = res.data.user;
-              console.log(res.data.user)
+              this.perfil = res.data.perfil;
+              this.console.log(res.data.user);
             }
           },
           (err) => {
@@ -48,9 +53,10 @@ export default {
     },
     async getCourses() {
       this.$axios
-        .get(process.env.baseUrl + "courses/")
+        .post(process.env.baseUrl + "courses/list/",
+        {token: localStorage.getItem("token")})
         .then((res) => {
-          var cursos = res.data;
+          var cursos = res.data.courses;
           this.cursos = cursos;
           console.log(this.cursos);
         })
@@ -68,6 +74,7 @@ export default {
       registro: [],
       //Usuario actual
       user: {},
+      perfil: {},
       clipped: false,
       drawer: false,
       fixed: false,
