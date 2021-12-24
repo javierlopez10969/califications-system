@@ -1,12 +1,12 @@
 <template>
   <div>
-    Hola tu Curso es : {{curso.name}}
+    Hola tu cuuurso es : {{curso.name}}
   </div>
 </template>
 
 <script>
 export default {
-  props : ["curso"],
+  props : [, "curso"],
   data() {
     return {
     
