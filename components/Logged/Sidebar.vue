@@ -78,8 +78,8 @@ export default {
       },
       {
         icon: "mdi-archive",
-        title: "Registros",
-        to: "",
+        title: "Registro Historico",
+        to: "/registro",
       },
       {
         icon: "mdi-cog",
