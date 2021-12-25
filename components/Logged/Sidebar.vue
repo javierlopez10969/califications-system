@@ -20,7 +20,13 @@
           </v-list-item-action>
         </v-list-item>
         <!--  editable -->
-        <v-list-item v-for="(item, i) in items" :key="i" :to="item.to" router exact>
+        <v-list-item
+          v-for="(item, i) in items"
+          :key="i"
+          :to="item.to"
+          router
+          exact
+        >
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
@@ -32,7 +38,7 @@
 
       <!-- Mis cursos
       <LoggedCourses :cursos="cursos" :name="'Cursos'" :drop="true" :link="'/cursos'"  />
-      <!-- Registro 
+Registro 
       <div v-if="registro !== []">
         <LoggedCourses :cursos="registro" :name="'Registro'" :drop="false" :link="'/registro'"  />
       </div>
@@ -50,12 +56,12 @@ export default {
       ["Ver fechas de evaluaciones", "mdi-cog-outline"],
     ],
     items: [
-        {
+      {
         icon: "mdi-account",
         title: "Mi perfil",
         to: "",
       },
-        {
+      {
         icon: "mdi-home",
         title: "Home",
         to: "/landing",
@@ -86,7 +92,6 @@ export default {
         to: "",
       },
     ],
-    ]
   }),
 };
 </script>
