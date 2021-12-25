@@ -71,8 +71,7 @@ export default {
         title: "Evaluaciones",
         to: "/evaluaciones",
       },
-    ],
-    user: {},
+    ]
   }),
 };
 </script>
