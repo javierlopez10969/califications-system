@@ -1,37 +1,31 @@
 <template>
-  <v-form
-    ref="form"
-    class="form-signin"
-    @submit.prevent="login"
-    lazy-validation
-  >
-    <v-card width="500px" height="200px" elevation="24" outlined shaped>
-      <v-container fluid>
-        <v-text-field
-          v-model="user.username"
-          :rules="emailRules"
-          label="Correo institucional"
-          required
-        ></v-text-field>
+        <v-card width="500px" class="mx-auto mt-5 rounded-lg"  elevation="12">
+            <v-container class="pa-7">
+                <v-card-title class="justify-center">
+                    <p class="text-h4 text--primary">
+                        Iniciar sesión
+                    </p>
+                </v-card-title>
 
-        <v-text-field
-          v-model="user.password"
-          type="password"
-          label="Clave"
-        ></v-text-field>
-        <v-btn
-          type="submit"
-          class="success mx-0 mt-3 text-center"
-          rounded
-          color="primary"
-          dark
-          block
-        >
-          Ingresar
-        </v-btn>
-      </v-container>
-    </v-card>
-  </v-form>
+                <v-form ref="form" class="form-signin" @submit.prevent="login" lazy-validation>
+                        <v-text-field
+                            v-model="user.username"
+                            :rules="emailRules"
+                            label="Correo institucional"
+                            required
+                        ></v-text-field>
+
+                    <v-text-field
+                        v-model="user.password"
+                        type="password"
+                        label="Clave"
+                    ></v-text-field>
+                    <v-btn type="submit" class="success mb-10 mt-3 text-center" rounded color="primary" dark block>
+                        Ingresar
+                    </v-btn>
+                </v-form>
+            </v-container>
+        </v-card>
 </template>
 
 <script>

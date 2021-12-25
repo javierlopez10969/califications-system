@@ -19,26 +19,8 @@
             <v-icon>mdi-menu-down</v-icon>
           </v-list-item-action>
         </v-list-item>
-        <!-- Perfil editable -->
-        <v-list-item>
-          <v-list-item-title>Mi perfil</v-list-item-title>
-          <v-list-item-icon>
-            <v-icon>mdi-account</v-icon>
-          </v-list-item-icon>
-        </v-list-item>
-        <v-list-item to="/landing">
-          <v-list-item-icon>
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>Home</v-list-item-title>
-        </v-list-item>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
+        <!--  editable -->
+        <v-list-item v-for="(item, i) in items" :key="i" :to="item.to" router exact>
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
@@ -47,12 +29,14 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-      <!-- Mis cursos-->
+
+      <!-- Mis cursos
       <LoggedCourses :cursos="cursos" :name="'Cursos'" :drop="true" :link="'/cursos'"  />
-      <!-- Registro -->
+      <!-- Registro 
       <div v-if="registro !== []">
         <LoggedCourses :cursos="registro" :name="'Registro'" :drop="false" :link="'/registro'"  />
       </div>
+-->
     </v-list>
   </div>
 </template>
@@ -66,11 +50,42 @@ export default {
       ["Ver fechas de evaluaciones", "mdi-cog-outline"],
     ],
     items: [
+        {
+        icon: "mdi-account",
+        title: "Mi perfil",
+        to: "",
+      },
+        {
+        icon: "mdi-home",
+        title: "Home",
+        to: "/landing",
+      },
       {
-        icon: "mdi-bookmark-multiple-outline",
+        icon: "mdi-calendar",
         title: "Evaluaciones",
         to: "/evaluaciones",
       },
+      {
+        icon: "mdi-school",
+        title: "Mis cursos",
+        to: "/cursos",
+      },
+      {
+        icon: "mdi-archive",
+        title: "Registros",
+        to: "",
+      },
+      {
+        icon: "mdi-cog",
+        title: "Configuraciones",
+        to: "",
+      },
+      {
+        icon: "mdi-account-circle",
+        title: "Salir",
+        to: "",
+      },
+    ],
     ]
   }),
 };
