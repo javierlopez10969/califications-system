@@ -7,7 +7,7 @@
       fixed
       app
     >
-      <LoggedSidebar :cursos="cursos" :user.sync="user" :perfil.sync="perfil" />
+      <LoggedSidebar :cursos="cursos" :registro="registro" :user.sync="user" :perfil.sync="perfil" />
     </v-navigation-drawer>
     <v-app-bar dense :clipped-left="clipped" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />

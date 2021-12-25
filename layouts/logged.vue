@@ -22,6 +22,7 @@ export default {
   created: function () {
     this.getUserData();
     this.getCourses();
+    this.getHistoric();
   },
   async fetch() {},
   mounted: function () {
@@ -32,8 +33,9 @@ export default {
   methods: {
     async getUserData() {
       this.$axios
-        .post(process.env.baseUrl + "users/getuser/", 
-        {token: localStorage.getItem("token")})
+        .post(process.env.baseUrl + "users/getuser/", {
+          token: localStorage.getItem("token"),
+        })
         .then(
           (res) => {
             //if successfull
@@ -51,16 +53,34 @@ export default {
           }
         );
     },
+    async getHistoric() {
+      this.$axios
+        .post(process.env.baseUrl + "courses/list/", {
+          token: localStorage.getItem("token"),
+          historic: true,
+        })
+        .then((res) => {
+          var cursos = res.data.courses;
+          this.registro = cursos;
+          console.log(this.cursos);
+        })
+        .catch((error) => {
+          console.log(error);
+          this.registro = []
+        });
+    },
     async getCourses() {
       this.$axios
-        .post(process.env.baseUrl + "courses/list/",
-        {token: localStorage.getItem("token")})
+        .post(process.env.baseUrl + "courses/list/", {
+          token: localStorage.getItem("token"),
+        })
         .then((res) => {
           var cursos = res.data.courses;
           this.cursos = cursos;
           console.log(this.cursos);
         })
         .catch((error) => {
+          this.cursos= []
           console.log(error);
         });
     },
