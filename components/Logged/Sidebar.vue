@@ -19,26 +19,8 @@
             <v-icon>mdi-menu-down</v-icon>
           </v-list-item-action>
         </v-list-item>
-        <!-- Perfil editable -->
-        <v-list-item>
-          <v-list-item-title>Mi perfil</v-list-item-title>
-          <v-list-item-icon>
-            <v-icon>mdi-account</v-icon>
-          </v-list-item-icon>
-        </v-list-item>
-        <v-list-item to="/landing">
-          <v-list-item-icon>
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>Home</v-list-item-title>
-        </v-list-item>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
+        <!--  editable -->
+        <v-list-item v-for="(item, i) in items" :key="i" :to="item.to" router exact>
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
@@ -47,56 +29,6 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-      <!-- Mis cursos-->
-      <v-list-group :value="true" prepend-icon="mdi-account-group">
-        <template v-slot:activator>
-          <v-list-item to="/cursos">
-            <v-list-item-title>Mis cursos</v-list-item-title></v-list-item
-          >
-        </template>
-        <!-- Curso-->
-        <v-list-item v-for="(curso, i) in cursos" :key="i" link>
-          <v-list-group no-action sub-group>
-            <template v-slot:activator>
-              <v-list-item-content>
-                <v-list-item-title>{{ curso.name }}</v-list-item-title>
-              </v-list-item-content>
-            </template>
-            <!-- opciones-->
-            <v-list-item v-for="([title, icon], i) in opciones" :key="i" link>
-              <v-list-item-title v-text="title"></v-list-item-title>
-              <v-list-item-icon>
-                <v-icon v-text="icon"></v-icon>
-              </v-list-item-icon>
-            </v-list-item>
-          </v-list-group>
-        </v-list-item>
-      </v-list-group>
-      <!-- Registro -->
-      <v-list-group :value="false" prepend-icon="mdi-account-group">
-        <template v-slot:activator>
-          <v-list-item to="/cursos">
-            <v-list-item-title>Registro</v-list-item-title></v-list-item
-          >
-        </template>
-        <!-- Curso-->
-        <v-list-item v-for="(curso, i) in cursos" :key="i" link>
-          <v-list-group no-action sub-group>
-            <template v-slot:activator>
-              <v-list-item-content>
-                <v-list-item-title>{{ curso.name }}</v-list-item-title>
-              </v-list-item-content>
-            </template>
-            <!-- opciones-->
-            <v-list-item v-for="([title, icon], i) in opciones" :key="i" link>
-              <v-list-item-title v-text="title"></v-list-item-title>
-              <v-list-item-icon>
-                <v-icon v-text="icon"></v-icon>
-              </v-list-item-icon>
-            </v-list-item>
-          </v-list-group>
-        </v-list-item>
-      </v-list-group>
     </v-list>
   </div>
 </template>
@@ -110,10 +42,40 @@ export default {
       ["Ver fechas de evaluaciones", "mdi-cog-outline"],
     ],
     items: [
+        {
+        icon: "mdi-account",
+        title: "Mi perfil",
+        to: "",
+      },
+        {
+        icon: "mdi-home",
+        title: "Home",
+        to: "/landing",
+      },
       {
-        icon: "mdi-bookmark-multiple-outline",
+        icon: "mdi-calendar",
         title: "Evaluaciones",
         to: "/evaluaciones",
+      },
+      {
+        icon: "mdi-school",
+        title: "Mis cursos",
+        to: "/cursos",
+      },
+      {
+        icon: "mdi-archive",
+        title: "Registros",
+        to: "",
+      },
+      {
+        icon: "mdi-cog",
+        title: "Configuraciones",
+        to: "",
+      },
+      {
+        icon: "mdi-account-circle",
+        title: "Salir",
+        to: "",
       },
     ],
     user: {},

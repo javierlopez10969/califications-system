@@ -1,9 +1,6 @@
 <template>
   <div>
-    <v-spacer></v-spacer>
-    <CoursesCursos :cursos="cursos" />
-    <v-spacer></v-spacer>
-    <CoursesCurso :curso="curso" />
+    <CoursesCurso :cursos="cursos" :curso="curso" />
   </div>
 </template>
 <script>
@@ -17,7 +14,7 @@ export default {
         id: "",
     };
   },
-  updated() {
+  mounted() {
     this.findCurso();
   },
     methods: {
