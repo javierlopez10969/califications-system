@@ -2,7 +2,7 @@
     <v-container class="pa-5">
         <v-row class="mb-20">
             <v-col>
-                <p class="text-h4 mb-1 text-left">Información del curso</p>
+                <p class="text-h4 mb-1 text-left">Datos del curso</p>
                 <v-divider> </v-divider>
                 <v-container class="pa-0">
                 <v-list two-line class="pa-2">
@@ -29,12 +29,24 @@
                 </v-container>
             </v-col>
             <v-col>
-                <p class="text-h4 mb-1 text-left">Notas del curso</p>
+                <p class="text-h4 mb-1 text-left">Notas</p>
                 <v-divider> </v-divider>
-                <v-container>
-                    <h5>aquí van las notas del curso</h5>
+                <v-container class="pa-0 mt-4">
+                    <v-data-table
+                        :headers="headers"
+                        :items="desserts"
+                        :items-per-page="5"
+                        class="elevation-1"
+                        hide-default-footer
+                    ></v-data-table>
                 </v-container>
             </v-col>
+        </v-row>
+
+        <v-row class="text-center pa-15">
+            <v-btn outlined depressed block small @click="volver">
+                Volver a cursos
+            </v-btn>
         </v-row>
     </v-container>
 
@@ -52,6 +64,50 @@ export default {
         { divider: true, inset: true },
         { avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg', title: 'Oui oui', subtitle: '<span class="font-weight-bold">Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?' },
       ],
+      headers: [
+          {
+            text: 'Evaluación',
+            align: 'start',
+            sortable: false,
+            value: 'name',
+          },
+          { text: 'Mi nota', value: 'nota' },
+          { text: 'Nota mínima', value: 'min' },
+          { text: 'Nota máxima', value: 'max' },
+          { text: 'Promedio', value: 'prom' },
+          { text: 'Obs', value: 'obs' },
+        ],
+        desserts: [
+          {
+            name: 'Pep 1',
+            nota: '1.0',
+            min: '1.0',
+            max: '1.0',
+            prom: '1.0',
+            obs: 'pendiente',
+          },
+          {
+            name: 'Pep 2',
+            nota: '1.0',
+            min: '1.0',
+            max: '1.0',
+            prom: '1.0',
+            obs: 'pendiente',
+          },
+          {
+            name: 'Pep 3',
+            nota: '1.0',
+            min: '1.0',
+            max: '1.0',
+            prom: '1.0',
+            obs: 'pendiente',
+          }
+        ],
     }),
+    methods: {
+        volver(){
+            this.$router.go(-1)
+        }
+    },
 }
 </script>

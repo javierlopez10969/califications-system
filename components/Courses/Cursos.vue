@@ -13,7 +13,7 @@
                         </v-card-title>
                         <v-card-actions>
                             <v-btn  color="orange lighten-2" text :to="'/cursos/'+item.id.toString()">
-                                Datos del curso
+                                Información del curso
                             </v-btn>
                         </v-card-actions>
                     </v-card>
