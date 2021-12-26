@@ -8,7 +8,7 @@
     />
     <v-main>
       <v-container>
-        <NuxtChild :cursos="cursos" :registro="registro" :user="user" />
+        <NuxtChild :cursos="cursos" :registro="registro" :user="user" :semestre.sync="semestre" />
       </v-container>
     </v-main>
     <v-footer :absolute="!fixed" app>
@@ -43,6 +43,7 @@ export default {
               console.log(res.data);
               this.user = res.data.user;
               this.perfil = res.data.perfil;
+              this.semestre= res.data.semester;
             }
           },
           (err) => {
@@ -94,6 +95,7 @@ export default {
       //Usuario actual
       user: {},
       perfil: {},
+      semestre : {},
       clipped: false,
       drawer: false,
       fixed: false,

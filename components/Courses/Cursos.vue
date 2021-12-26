@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <p class="text-h4 text--primary mb-0 text-left">Mis Cursos</p>
+    <p class="text-h4 text--primary mb-0 text-left">{{ titulo }}</p>
     <v-flex d-flex>
       <v-layout wrap>
         <v-flex md6 v-for="(item, i) in cursos" :key="i">
@@ -13,23 +13,32 @@
               {{ item.name }}
             </v-card-title>
             <v-card-actions>
-              <v-btn
-                color="orange lighten-2"
-                text
-                :to="'/cursos/' + item.id.toString()"
-              >
-                Datos del curso
-              </v-btn>
-              <p></p>
-              <v-spacer></v-spacer>
               <!--V -if si tiene roles para editar este curso-->
-              <v-btn
-                color="orange lighten-2"
-                text
-                :to="'/cursos/admin/' + item.id.toString()"
-              >
-                Administrar curso
-              </v-btn>
+              <div v-if="item.activate === true">
+                <v-btn
+                  color="orange lighten-2"
+                  text
+                  :to="'/cursos/' + item.id.toString()"
+                >
+                  Datos del curso
+                </v-btn>
+                <v-btn
+                  color="orange lighten-2"
+                  text
+                  :to="'/cursos/admin/' + item.id.toString()"
+                >
+                  Administrar curso
+                </v-btn>
+              </div>
+              <div v-else>
+                <v-btn
+                  color="orange lighten-2"
+                  text
+                  :to="'/registro/' + item.id.toString()"
+                >
+                  Datos del curso
+                </v-btn>
+              </div>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -40,7 +49,7 @@
 
 <script>
 export default {
-  props: ["cursos"],
+  props: ["cursos", "titulo"],
   data: () => ({
     selectedItem: 1,
     link: "",
