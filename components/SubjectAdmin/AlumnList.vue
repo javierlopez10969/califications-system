@@ -1,32 +1,25 @@
 <template>
-  <v-simple-table
-    fixed-header
-    height="300px"
-  >
+  <v-simple-table fixed-header height="300px">
     <template v-slot:default>
       <thead>
         <tr>
-          <th class="text-left">
-            Name
-          </th>
-          <th class="text-left">
-            Calories
-          </th>
+          <th class="text-left">Correo del alumno</th>
+          <th class="text-left">Desinscribir</th>
         </tr>
       </thead>
       <tbody>
-        <tr
-          v-for="item in desserts"
-          :key="item.name"
-        >
-          <td>{{ item.name }}</td>
-          <td>{{ item.calories }}</td>
+        <tr v-for="item in alumnos" :key="item.id">
+          <td>{{ item.email }}</td>
+          <td><v-btn color="red"> Eliminar</v-btn></td>
         </tr>
       </tbody>
     </template>
   </v-simple-table>
 </template>
 
+
 <script>
-    props : ["alumns",]
+export default {
+  props: ["alumnos"],
+};
 </script>

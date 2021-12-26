@@ -5,24 +5,25 @@
 </template>
 <script>
 export default {
-    name: "cursos",
-    layout: "logged",
-    props: ["cursos"],
-    data() {
+  name: "cursos",
+  layout: "logged",
+  props: ["cursos"],
+  data() {
     return {
-        curso: {},
-        id: "",
+      curso: {},
+      id: "",
     };
   },
-  mounted() {
+  created() {
     this.findCurso();
   },
-    methods: {
-        findCurso() {
-            let id = +this.$route.params.id;
-            console.log(id);
-            this.curso = this.cursos.find((curso) => curso.id === id);
-        },
+
+  methods: {
+    async findCurso() {
+      let id = +this.$route.params.id;
+      console.log(id);
+      this.curso = this.cursos.find((curso) => curso.id === id);
     },
+  },
 };
 </script>

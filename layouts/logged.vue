@@ -8,7 +8,7 @@
     />
     <v-main>
       <v-container>
-        <NuxtChild :cursos="cursos" :user.sync="user" />
+        <NuxtChild :cursos="cursos" :registro="registro" :user="user" />
       </v-container>
     </v-main>
     <v-footer :absolute="!fixed" app>
@@ -19,7 +19,7 @@
 
 <script>
 export default {
-  created: function () {
+  created() {
     this.getUserData();
     this.getCourses();
     this.getHistoric();
@@ -43,7 +43,6 @@ export default {
               console.log(res.data);
               this.user = res.data.user;
               this.perfil = res.data.perfil;
-              this.console.log(res.data.user);
             }
           },
           (err) => {
