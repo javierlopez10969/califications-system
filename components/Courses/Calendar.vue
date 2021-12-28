@@ -1,6 +1,7 @@
 <template>
   <v-row justify="center">
     {{picker}}
+    
     <v-date-picker v-model="picker"></v-date-picker>
   </v-row>
 </template>
