@@ -8,7 +8,12 @@
     />
     <v-main>
       <v-container>
-        <NuxtChild :cursos="cursos" :registro="registro" :user="user" :semestre.sync="semestre" />
+        <NuxtChild
+          :cursos="cursos"
+          :registro="registro"
+          :user="user"
+          :semestre.sync="semestre"
+        />
       </v-container>
     </v-main>
     <v-footer :absolute="!fixed" app>
@@ -19,16 +24,14 @@
 
 <script>
 export default {
-  created() {
-    this.getUserData();
-    this.getCourses();
-    this.getHistoric();
-  },
   async fetch() {},
-  mounted: function () {
+  beforeMount() {
     if (localStorage.getItem("token") === null) {
       this.$router.push("/login");
     }
+    this.getUserData();
+    this.getCourses();
+    this.getHistoric();
   },
   methods: {
     async getUserData() {
@@ -43,7 +46,7 @@ export default {
               console.log(res.data);
               this.user = res.data.user;
               this.perfil = res.data.perfil;
-              this.semestre= res.data.semester;
+              this.semestre = res.data.semester;
             }
           },
           (err) => {
@@ -66,7 +69,7 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          this.registro = []
+          this.registro = [];
         });
     },
     async getCourses() {
@@ -80,7 +83,7 @@ export default {
           console.log(this.cursos);
         })
         .catch((error) => {
-          this.cursos= []
+          this.cursos = [];
           console.log(error);
         });
     },
@@ -95,7 +98,7 @@ export default {
       //Usuario actual
       user: {},
       perfil: {},
-      semestre : {},
+      semestre: {},
       clipped: false,
       drawer: false,
       fixed: false,

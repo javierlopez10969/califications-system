@@ -2,6 +2,7 @@
   <v-container>
     <CoursesCurso :curso="curso" />
     <CoursesCalifications :evaluaciones="evaluaciones" />
+    <CoursesCalifications :evaluaciones="evaluacionesG" :fecha="fecha" />
   </v-container>
 </template>
 
@@ -13,11 +14,14 @@ export default {
     return {
       curso: {},
       evaluaciones: [],
+      evaluacionesG : [],
+      fecha: true,
     };
   },
-  mounted() {
+  beforeMount() {
     this.findCurso();
     this.getEvaluations();
+    this.getEvaluationsGeneral();
   },
   methods: {
     async findCurso() {
@@ -39,7 +43,28 @@ export default {
         .then((res) => {
           var evaluaciones = res.data.evaluations;
           this.evaluaciones = evaluaciones;
-          console.log(evaluaciones)
+          console.log(evaluaciones);
+        })
+        .catch((error) => {
+          console.log(error);
+          this.registro = [];
+        });
+    },
+    async getEvaluationsGeneral() {
+      this.$axios
+        .post(
+          process.env.baseUrl +
+            "evaluations/course/" +
+            this.$route.params.id +
+            "/",
+          {
+            token: localStorage.getItem("token"),
+          }
+        )
+        .then((res) => {
+          var evaluaciones = res.data.evaluations;
+          this.evaluacionesG = evaluaciones;
+          console.log(evaluaciones);
         })
         .catch((error) => {
           console.log(error);
