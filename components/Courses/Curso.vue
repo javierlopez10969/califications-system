@@ -1,7 +1,7 @@
 <template>
     <v-container class="pa-5">
         <v-row class="mb-20">
-            <v-col>
+            <v-col cols="5">
                 <p class="text-h4 mb-1 text-left">Datos del curso</p>
                 <v-divider> </v-divider>
                 <v-container class="pa-0">
@@ -31,22 +31,34 @@
             <v-col>
                 <p class="text-h4 mb-1 text-left">Notas</p>
                 <v-divider> </v-divider>
-                <v-container class="pa-0 mt-4">
-                    <v-data-table
-                        :headers="headers"
-                        :items="desserts"
-                        :items-per-page="5"
-                        class="elevation-1"
-                        hide-default-footer
-                    ></v-data-table>
-                </v-container>
+                <v-simple-table>
+                    <template v-slot:default>
+                        <thead>
+                        <tr>
+                            <th class="text-left" v-for="item in headers" :key="item.id">{{item.text}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="evaluacion in evaluaciones" :key="evaluacion.id">
+                            <td>{{ evaluacion.nombre_evaluacion }}</td>
+                            <td>{{ evaluacion.calificacion }}</td>
+                            <td>1.0</td>
+                            <td>7.0</td>
+                            <td>4.0</td>
+                            <td>{{ evaluacion.fecha_de_entrega }}</td>
+                        </tr>
+                        </tbody>
+                    </template>
+                </v-simple-table>
             </v-col>
         </v-row>
 
-        <v-row class="text-center pa-15">
-            <v-btn outlined depressed block small @click="volver">
+        <v-row class="pa-10">
+            <v-btn outlined depressed small @click="volver">
+                <v-icon dark left> mdi-arrow-left</v-icon>
                 Volver a cursos
             </v-btn>
+
         </v-row>
     </v-container>
 
@@ -54,31 +66,19 @@
 
 <script>
 export default {
-  props : ["curso"],
+  props : ["curso", "evaluaciones"],
     data: () => ({
-      items: [
-        { header: 'Today' },
-        { avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg', title: 'Brunch this weekend?', subtitle: `<span class="font-weight-bold">Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?` },
-        { divider: true, inset: true },
-        { avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg', title: 'Summer BBQ <span class="grey--text text--lighten-1">4</span>', subtitle: `<span class="font-weight-bold">to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend.` },
-        { divider: true, inset: true },
-        { avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg', title: 'Oui oui', subtitle: '<span class="font-weight-bold">Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?' },
-      ],
       headers: [
-          {
-            text: 'Evaluación',
-            align: 'start',
-            sortable: false,
-            value: 'name',
-          },
+          { text: 'Evaluación', value: 'nota' },
           { text: 'Mi nota', value: 'nota' },
           { text: 'Nota mínima', value: 'min' },
           { text: 'Nota máxima', value: 'max' },
           { text: 'Promedio', value: 'prom' },
-          { text: 'Obs', value: 'obs' },
+          { text: 'Fecha', value: 'prom' },
         ],
-        desserts: [
+        notas: [
           {
+            id: 1,  
             name: 'Pep 1',
             nota: '1.0',
             min: '1.0',
@@ -87,6 +87,7 @@ export default {
             obs: 'pendiente',
           },
           {
+            id: 2,
             name: 'Pep 2',
             nota: '1.0',
             min: '1.0',
@@ -95,6 +96,7 @@ export default {
             obs: 'pendiente',
           },
           {
+            id: 3,
             name: 'Pep 3',
             nota: '1.0',
             min: '1.0',
