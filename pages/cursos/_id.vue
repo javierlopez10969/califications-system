@@ -31,7 +31,7 @@ export default {
       this.$axios
         .post(
           process.env.baseUrl +
-            "evaluations/user/3"+
+            "evaluations/user/"+  this.$route.params.id +
             "/",
           {
             token: localStorage.getItem("token"),
