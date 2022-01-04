@@ -1,8 +1,8 @@
 <template>
   <v-container>
-    <CoursesCurso :curso="curso" />
-    <CoursesCalifications :evaluaciones="evaluaciones" />
-    <CoursesCalifications :evaluaciones="evaluacionesG" :fecha="fecha" />
+    <RegistroCurso :curso="curso" />
+    <RegistroCalifications :evaluaciones="evaluaciones" />
+    <RegistroCalifications :evaluaciones="evaluacionesG" :fecha="fecha" />
   </v-container>
 </template>
 
