@@ -1,7 +1,7 @@
 <template>
     <v-container fill-height fluid>
         <v-col align="center">
-            <CoursesCursos :cursos="cursos" :titulo="'Mis cursos  ' +  semestre.semester+ '-' +semestre.year.toString()" />
+            <CoursesCursos :cursos="cursos" :titulo="'Mis cursos  ' +  semestre.semester+ '-' +semestre.year" />
         </v-col>
     </v-container>
 </template>

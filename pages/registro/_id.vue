@@ -14,11 +14,11 @@ export default {
     return {
       curso: {},
       evaluaciones: [],
-      evaluacionesG : [],
+      evaluacionesG: [],
       fecha: true,
     };
   },
-  beforeMount() {
+  async update() {
     this.findCurso();
     this.getEvaluations();
     this.getEvaluationsGeneral();
@@ -70,7 +70,7 @@ export default {
           console.log(error);
           this.registro = [];
         });
-    },
+    }
   },
 };
 </script>

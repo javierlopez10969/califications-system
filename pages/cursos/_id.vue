@@ -17,7 +17,7 @@ export default {
       promedioE: 0,
     };
   },
-  created() {
+  async update() {
     this.findCurso();
     this.getEvaluations();
     this.getAllEvaluations();

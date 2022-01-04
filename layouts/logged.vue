@@ -8,11 +8,11 @@
     />
     <v-main>
       <v-container>
-        <NuxtChild
+        <NuxtChild keep-alive
           :cursos="cursos"
           :registro="registro"
           :user="user"
-          :semestre.sync="semestre"
+          :semestre="semestre"
         />
       </v-container>
     </v-main>
@@ -24,8 +24,7 @@
 
 <script>
 export default {
-  async fetch() {},
-  beforeMount() {
+  async beforeMount() {
     if (localStorage.getItem("token") === null) {
       this.$router.push("/login");
     }
@@ -35,57 +34,52 @@ export default {
   },
   methods: {
     async getUserData() {
-      this.$axios
-        .post(process.env.baseUrl + "users/getuser/", {
-          token: localStorage.getItem("token"),
-        })
-        .then(
-          (res) => {
-            //if successfull
-            if (res.status === 200) {
-              console.log(res.data);
-              this.user = res.data.user;
-              this.perfil = res.data.perfil;
-              this.semestre = res.data.semester;
-            }
-          },
-          (err) => {
-            //alert(err.response.data.error);
-            console.log(err.response.data.error);
-            this.error = err.response.data.mensaje;
+      try {
+        const res = await this.$axios.post(
+          process.env.baseUrl + "users/getuser/",
+          {
+            token: localStorage.getItem("token"),
           }
         );
+        console.log(res.data);
+        this.user = res.data.user;
+        this.perfil = res.data.perfil;
+        this.semestre = res.data.semester;
+      } catch (error) {
+        console.log(error.response.data.error);
+        this.error = err.response.data.mensaje;
+      }
     },
     async getHistoric() {
-      this.$axios
-        .post(process.env.baseUrl + "courses/list/", {
-          token: localStorage.getItem("token"),
-          historic: true,
-        })
-        .then((res) => {
-          var cursos = res.data.courses;
-          this.registro = cursos;
-          console.log(this.cursos);
-        })
-        .catch((error) => {
-          console.log(error);
-          this.registro = [];
-        });
+      try {
+        const res = await this.$axios.post(
+          process.env.baseUrl + "courses/list/",
+          {
+            token: localStorage.getItem("token"),
+            historic: true,
+          }
+        );
+        var cursos = res.data.courses;
+        this.registro = cursos;
+        console.log(this.cursos);
+      } catch (error) {
+        console.log(error);
+        this.registro = [];
+      }
     },
     async getCourses() {
-      this.$axios
-        .post(process.env.baseUrl + "courses/list/", {
-          token: localStorage.getItem("token"),
-        })
-        .then((res) => {
-          var cursos = res.data.courses;
-          this.cursos = cursos;
-          console.log(this.cursos);
-        })
-        .catch((error) => {
-          this.cursos = [];
-          console.log(error);
-        });
+      try {
+        const res = await this.$axios.post(
+          process.env.baseUrl + "courses/list/",
+          { token: localStorage.getItem("token") }
+        );
+        var cursos = res.data.courses;
+        this.cursos = cursos;
+        console.log(this.cursos);
+      } catch (error) {
+        console.log(error);
+        this.registro = [];
+      }
     },
   },
   data() {
