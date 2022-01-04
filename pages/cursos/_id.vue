@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CoursesCurso :cursos="cursos" :curso="curso" :evaluaciones="evaluaciones" :todasEvaluaciones="todasEvaluaciones"/>
+    <CoursesCurso :cursos="cursos" :curso="curso" :evaluaciones="evaluaciones" :todasEvaluaciones="todasEvaluaciones" :promedioE="promedioE"/>
   </div>
 </template>
 <script>
@@ -14,6 +14,7 @@ export default {
       id: "",
       evaluaciones: [],
       todasEvaluaciones: [],
+      promedioE: 0,
     };
   },
   created() {
@@ -41,6 +42,7 @@ export default {
         .then((res) => {
           var evaluaciones = res.data.evaluations;
           this.evaluaciones = evaluaciones;
+          this.promedioE = evaluaciones[0].promedio
           console.log(evaluaciones);
         })
         .catch((error) => {

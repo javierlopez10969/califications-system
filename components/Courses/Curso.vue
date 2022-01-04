@@ -1,12 +1,11 @@
 <template>
     <v-container class="pa-5">
-        <div v-if="todasEvaluaciones.length === 0">
-        <v-row class="mb-20">
+        <v-row class="mb-20" v-if="todasEvaluaciones.length === 0">
             <v-col cols="5">
                 <p class="text-h4 mb-1 text-left">Datos del curso</p>
                 <v-divider> </v-divider>
                 <v-container class="pa-0">
-                    <v-list two-line class="pa-2">
+                    <v-list class="pa-2">
                         <v-list-item-group two-line>
                             <v-list-item-content>
                                 <v-list-item-title>
@@ -24,6 +23,17 @@
                                     <p class="text-h5">{{curso.description}}</p>
                                 </v-list-item-subtitle>
                                 <v-list-item-subtitle v-else>Sin descripción.</v-list-item-subtitle>
+                            </v-list-item-content>
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    <p class="text-h6 font-weight-bold mb-0">Promedio</p>
+                                </v-list-item-title>
+                                <v-list-item-subtitle v-if="promedioE!==0">
+                                    <p class="text-h5">{{promedioE}}</p>
+                                </v-list-item-subtitle>
+                                <v-list-item-subtitle v-else>
+                                    <p class="text-h5">Sin notas.</p>
+                                </v-list-item-subtitle>
                             </v-list-item-content>
                         </v-list-item-group>    
                     </v-list>
@@ -53,15 +63,13 @@
                 </v-simple-table>
             </v-col>
         </v-row>
-        </div>
 
-        <div v-else>
-            <v-row>
-                <v-col>
-                    <p class="text-h4 mb-1 text-left">Rendimiento del Curso </p>
-                    <v-divider> </v-divider>
-                    <h3>{{curso.name}}</h3>
-                </v-col>
+        <v-row v-else>
+            <v-col>
+                <p class="text-h4 mb-1 text-left">Rendimiento del Curso </p>
+                <v-divider> </v-divider>
+                <h3>{{curso.name}}</h3>
+            </v-col>
             </v-row>
             <v-row v-for="curso in todasEvaluaciones" :key="curso.id">
             <v-col cols="5">
@@ -111,7 +119,6 @@
                 </v-row>
             </v-col>
         </v-row>
-        </div>
         
         <v-row class="pa-10">
             <v-btn outlined depressed small @click="volver">
@@ -125,7 +132,7 @@
 
 <script>
 export default {
-  props : ["curso", "evaluaciones", "todasEvaluaciones"],
+  props : ["curso", "evaluaciones", "todasEvaluaciones", "promedioE"],
     data: () => ({
       headers: [
           { text: 'Evaluación', value: 'nota' },
@@ -149,7 +156,7 @@ export default {
     methods: {
         volver(){
             this.$router.go(-1)
-        }
-    },
+        },
+    }
 }
 </script>
