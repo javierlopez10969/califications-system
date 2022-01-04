@@ -1,31 +1,32 @@
 <template>
     <v-container class="pa-5">
+        <div v-if="todasEvaluaciones.length === 0">
         <v-row class="mb-20">
             <v-col cols="5">
                 <p class="text-h4 mb-1 text-left">Datos del curso</p>
                 <v-divider> </v-divider>
                 <v-container class="pa-0">
-                <v-list two-line class="pa-2">
-                    <v-list-item-group two-line>
-                        <v-list-item-content>
-                            <v-list-item-title>
-                                <p class="text-h6 font-weight-bold mb-0">Asignatura</p>
-                            </v-list-item-title>
-                            <v-list-item-subtitle>
-                                <p class="text-h5">{{curso.name}}</p>
-                            </v-list-item-subtitle>
-                        </v-list-item-content>
-                        <v-list-item-content>
-                            <v-list-item-title>
-                                <p class="text-h6 font-weight-bold mb-0">Descripción de la asignatura</p>
-                            </v-list-item-title>
-                            <v-list-item-subtitle v-if="curso.description != ''">
-                                <p class="text-h5">{{curso.description}}</p>
-                            </v-list-item-subtitle>
-                            <v-list-item-subtitle v-else>Sin descripción.</v-list-item-subtitle>
-                        </v-list-item-content>
-                    </v-list-item-group>    
-                </v-list>
+                    <v-list two-line class="pa-2">
+                        <v-list-item-group two-line>
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    <p class="text-h6 font-weight-bold mb-0">Asignatura</p>
+                                </v-list-item-title>
+                                <v-list-item-subtitle>
+                                    <p class="text-h5">{{curso.name}}</p>
+                                </v-list-item-subtitle>
+                            </v-list-item-content>
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    <p class="text-h6 font-weight-bold mb-0">Descripción de la asignatura</p>
+                                </v-list-item-title>
+                                <v-list-item-subtitle v-if="curso.description != ''">
+                                    <p class="text-h5">{{curso.description}}</p>
+                                </v-list-item-subtitle>
+                                <v-list-item-subtitle v-else>Sin descripción.</v-list-item-subtitle>
+                            </v-list-item-content>
+                        </v-list-item-group>    
+                    </v-list>
                 </v-container>
             </v-col>
             <v-col>
@@ -52,13 +53,71 @@
                 </v-simple-table>
             </v-col>
         </v-row>
+        </div>
 
+        <div v-else>
+            <v-row>
+                <v-col>
+                    <p class="text-h4 mb-1 text-left">Rendimiento del Curso </p>
+                    <v-divider> </v-divider>
+                    <h3>{{curso.name}}</h3>
+                </v-col>
+            </v-row>
+            <v-row v-for="curso in todasEvaluaciones" :key="curso.id">
+            <v-col cols="5">
+                <v-row>
+                <v-col>
+                <p class="text-h6 font-weight-bold mb-0">{{curso.evaluacion}}</p>
+                <v-simple-table class="mb-20">
+                    <template v-slot:default>
+                        <thead>
+                        <tr>
+                            <th class="text-left" v-for="item in head" :key="item.id">{{item.text}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="notas in curso.notas" :key="notas.id">
+                            <td>{{ notas.usuario }}</td>
+                            <td>{{ notas.nota }}</td>
+                            <td>-</td>
+                        </tr>
+                        </tbody>
+                    </template>
+                </v-simple-table>
+                </v-col>
+                </v-row>
+            </v-col>
+
+            <v-col>
+                <v-row class="mt-5">
+                <v-col>
+                <v-simple-table class="mb-20">
+                    <template v-slot:default>
+                        <thead>
+                        <tr>
+                            <th class="text-left" v-for="item in head2" :key="item.id">{{item.text}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{curso.minimo}}</td>
+                            <td>{{curso.maximo}}</td>
+                            <td>{{curso.promedio}}</td>
+                        </tr>
+                        </tbody>
+                    </template>
+                </v-simple-table>
+                </v-col>
+                </v-row>
+            </v-col>
+        </v-row>
+        </div>
+        
         <v-row class="pa-10">
             <v-btn outlined depressed small @click="volver">
                 <v-icon dark left> mdi-arrow-left</v-icon>
                 Volver a cursos
             </v-btn>
-
         </v-row>
     </v-container>
 
@@ -66,7 +125,7 @@
 
 <script>
 export default {
-  props : ["curso", "evaluaciones"],
+  props : ["curso", "evaluaciones", "todasEvaluaciones"],
     data: () => ({
       headers: [
           { text: 'Evaluación', value: 'nota' },
@@ -76,34 +135,15 @@ export default {
           { text: 'Promedio', value: 'prom' },
           { text: 'Fecha', value: 'prom' },
         ],
-        notas: [
-          {
-            id: 1,  
-            name: 'Pep 1',
-            nota: '1.0',
-            min: '1.0',
-            max: '1.0',
-            prom: '1.0',
-            obs: 'pendiente',
-          },
-          {
-            id: 2,
-            name: 'Pep 2',
-            nota: '1.0',
-            min: '1.0',
-            max: '1.0',
-            prom: '1.0',
-            obs: 'pendiente',
-          },
-          {
-            id: 3,
-            name: 'Pep 3',
-            nota: '1.0',
-            min: '1.0',
-            max: '1.0',
-            prom: '1.0',
-            obs: 'pendiente',
-          }
+        head: [
+          { text: 'Estudiante', value: 'nota' },
+          { text: 'Nota', value: 'nota' },
+          { text: 'Observación', value: 'min' },
+        ],
+        head2: [
+          { text: 'Nota mínima', value: 'nota' },
+          { text: 'Nota máxima', value: 'nota' },
+          { text: 'Promedio', value: 'min' },
         ],
     }),
     methods: {

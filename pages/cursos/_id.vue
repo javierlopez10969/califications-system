@@ -1,7 +1,6 @@
 <template>
   <div>
-    <CoursesCurso :cursos="cursos" :curso="curso" :evaluaciones="evaluaciones"/>
-    <h4></h4>
+    <CoursesCurso :cursos="cursos" :curso="curso" :evaluaciones="evaluaciones" :todasEvaluaciones="todasEvaluaciones"/>
   </div>
 </template>
 <script>
@@ -14,11 +13,13 @@ export default {
       curso: {},
       id: "",
       evaluaciones: [],
+      todasEvaluaciones: [],
     };
   },
   created() {
     this.findCurso();
     this.getEvaluations();
+    this.getAllEvaluations();
   },    
 
   methods: {
@@ -41,6 +42,26 @@ export default {
           var evaluaciones = res.data.evaluations;
           this.evaluaciones = evaluaciones;
           console.log(evaluaciones);
+        })
+        .catch((error) => {
+          console.log(error);
+          this.registro = [];
+        });
+    },
+    async getAllEvaluations(){
+        this.$axios
+        .post(
+          process.env.baseUrl +
+            "evaluations/promedio/course/"+  this.$route.params.id +
+            "/",
+          {
+            token: localStorage.getItem("token"),
+          }
+        )
+        .then((res) => {
+          var todasEvaluaciones = res.data;
+          this.todasEvaluaciones = todasEvaluaciones;
+          console.log(todasEvaluaciones);
         })
         .catch((error) => {
           console.log(error);
