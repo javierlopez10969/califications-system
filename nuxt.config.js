@@ -67,8 +67,8 @@ export default {
           success: colors.green.accent3
         },
         light :{
-          primary: colors.purple,
-          secondary: colors.grey.darken1,
+          primary: "#FA7F36",
+          secondary: "#00487D",
           accent: colors.shades.black,
           error: colors.red.accent3,  
         }

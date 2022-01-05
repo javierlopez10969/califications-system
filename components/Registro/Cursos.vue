@@ -14,23 +14,8 @@
             </v-card-title>
             <v-card-actions>
               <!--V -if si tiene roles para editar este curso-->
-              <div v-if="item.activate === true">
-                <v-btn
-                  color="orange lighten-2"
-                  text
-                  :to="'/cursos/' + item.id.toString()"
-                >
-                  Datos del curso
-                </v-btn>
-                <v-btn
-                  color="orange lighten-2"
-                  text
-                  :to="'/cursos/admin/' + item.id.toString()"
-                >
-                  Administrar curso
-                </v-btn>
-              </div>
-              <div v-else>
+
+              <div >
                 <v-btn
                   color="orange lighten-2"
                   text

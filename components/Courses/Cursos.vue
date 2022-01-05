@@ -26,13 +26,6 @@
                 >
                   Datos del curso
                 </v-btn>
-                <v-btn v-if="item.can_edit===true"
-                  color="orange lighten-2"
-                  text
-                  :to="'/cursos/admin/' + item.id.toString()"
-                >
-                  Administrar curso
-                </v-btn>
               </div>
               <div v-else>
                 <v-btn

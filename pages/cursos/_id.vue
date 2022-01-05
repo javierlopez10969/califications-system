@@ -6,6 +6,7 @@
       :evaluaciones="evaluaciones"
       :todasEvaluaciones="todasEvaluaciones"
       :promedioE="promedioE"
+      :alumnos="alumnos"
     />
   </div>
 </template>
@@ -20,6 +21,8 @@ export default {
       id: "",
       evaluaciones: [],
       todasEvaluaciones: [],
+      evaluacionesG: [],
+      alumnos : [],
       promedioE: 0,
     };
   },
@@ -27,6 +30,10 @@ export default {
     this.findCurso();
     this.getEvaluations();
     this.getAllEvaluations();
+    this.getAlumns();
+  },
+  mounted() {
+    this.findCurso();
   },
   methods: {
     async findCurso() {
@@ -71,6 +78,43 @@ export default {
           var todasEvaluaciones = res.data;
           this.todasEvaluaciones = todasEvaluaciones;
           console.log(todasEvaluaciones);
+        })
+        .catch((error) => {
+          console.log(error);
+          this.registro = [];
+        });
+    },
+    async getAlumns() {
+      this.$axios
+        .get(
+          process.env.baseUrl + "courses/users/" + this.$route.params.id + "/"
+        )
+        .then((res) => {
+          var alumns = res.data.alumns;
+          this.alumnos = alumns;
+          console.log(alumns[0].email);
+          console.log("ALUMNOS :" + this.alumnos);
+        })
+        .catch((error) => {
+          console.log(error);
+          this.registro = [];
+        });
+    },
+    async getEvaluationsGeneral() {
+      this.$axios
+        .post(
+          process.env.baseUrl +
+            "evaluations/course/" +
+            this.$route.params.id +
+            "/",
+          {
+            token: localStorage.getItem("token"),
+          }
+        )
+        .then((res) => {
+          var evaluaciones = res.data.evaluations;
+          this.evaluacionesG = evaluaciones;
+          console.log(evaluaciones);
         })
         .catch((error) => {
           console.log(error);
