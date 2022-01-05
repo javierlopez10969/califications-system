@@ -5,8 +5,8 @@
       :curso="curso"
       :evaluaciones="evaluaciones"
       :todasEvaluaciones="todasEvaluaciones"
+      :promedioE="promedioE"
     />
-
   </div>
 </template>
 <script>
@@ -20,15 +20,14 @@ export default {
       id: "",
       evaluaciones: [],
       todasEvaluaciones: [],
-      fecha: true,
+      promedioE: 0,
     };
   },
-  created() {
+  async created() {
     this.findCurso();
     this.getEvaluations();
     this.getAllEvaluations();
   },
-
   methods: {
     async findCurso() {
       let id = +this.$route.params.id;
@@ -49,6 +48,7 @@ export default {
         .then((res) => {
           var evaluaciones = res.data.evaluations;
           this.evaluaciones = evaluaciones;
+          this.promedioE = evaluaciones[0].promedio;
           console.log(evaluaciones);
         })
         .catch((error) => {

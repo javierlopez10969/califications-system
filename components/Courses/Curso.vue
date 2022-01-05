@@ -1,5 +1,6 @@
 <template>
     <v-container class="pa-5">
+        <!-- Caso de alumnos-->
         <v-row class="mb-20" v-if="todasEvaluaciones.length === 0">
             <v-col cols="5">
                 <p class="text-h4 mb-1 text-left">Datos del curso</p>
@@ -63,61 +64,9 @@
                 </v-simple-table>
             </v-col>
         </v-row>
-
+        <!-- Caso Profesor-->
         <v-row v-else>
-            <v-col>
-                <p class="text-h4 mb-1 text-left">Rendimiento del Curso </p>
-                <v-divider> </v-divider>
-                <h3>{{curso.name}}</h3>
-            </v-col>
-            </v-row>
-            <v-row v-for="curso in todasEvaluaciones" :key="curso.id">
-            <v-col cols="5">
-                <v-row>
-                <v-col>
-                <p class="text-h6 font-weight-bold mb-0">{{curso.evaluacion}}</p>
-                <v-simple-table class="mb-20">
-                    <template v-slot:default>
-                        <thead>
-                        <tr>
-                            <th class="text-left" v-for="item in head" :key="item.id">{{item.text}}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr v-for="notas in curso.notas" :key="notas.id">
-                            <td>{{ notas.usuario }}</td>
-                            <td>{{ notas.nota }}</td>
-                            <td>-</td>
-                        </tr>
-                        </tbody>
-                    </template>
-                </v-simple-table>
-                </v-col>
-                </v-row>
-            </v-col>
-
-            <v-col>
-                <v-row class="mt-5">
-                <v-col>
-                <v-simple-table class="mb-20">
-                    <template v-slot:default>
-                        <thead>
-                        <tr>
-                            <th class="text-left" v-for="item in head2" :key="item.id">{{item.text}}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>{{curso.minimo}}</td>
-                            <td>{{curso.maximo}}</td>
-                            <td>{{curso.promedio}}</td>
-                        </tr>
-                        </tbody>
-                    </template>
-                </v-simple-table>
-                </v-col>
-                </v-row>
-            </v-col>
+            <SubjectAdminEvaluations :curso="curso" :todasEvaluaciones="todasEvaluaciones" :promedioE="promedioE" />
         </v-row>
         
         <v-row class="pa-10">
