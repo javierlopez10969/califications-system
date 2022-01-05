@@ -22,19 +22,17 @@ export default {
       evaluaciones: [],
       todasEvaluaciones: [],
       evaluacionesG: [],
-      alumnos : [],
+      alumnos: [],
       promedioE: 0,
     };
   },
-  async created() {
+  created() {
     this.findCurso();
     this.getEvaluations();
     this.getAllEvaluations();
     this.getAlumns();
   },
-  mounted() {
-    this.findCurso();
-  },
+
   methods: {
     async findCurso() {
       let id = +this.$route.params.id;

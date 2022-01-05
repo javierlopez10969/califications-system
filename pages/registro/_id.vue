@@ -1,7 +1,6 @@
 <template>
   <v-container>
-    <RegistroCurso :curso="curso" />
-    <RegistroCalifications :evaluaciones="evaluaciones" />
+    <RegistroCurso :curso="curso" :evaluaciones="evaluaciones"/>
   </v-container>
 </template>
 

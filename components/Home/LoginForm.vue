@@ -20,7 +20,7 @@
                         type="password"
                         label="Clave"
                     ></v-text-field>
-                    <v-btn type="submit" class="success mb-10 mt-3 text-center" rounded color="primary" dark block>
+                    <v-btn type="submit" class="mb-10 mt-3 text-center" rounded color="secondary" light block>
                         Ingresar
                     </v-btn>
                 </v-form>
