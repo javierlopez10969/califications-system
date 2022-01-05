@@ -2,23 +2,25 @@
   <v-container>
     <RegistroCurso :curso="curso" />
     <RegistroCalifications :evaluaciones="evaluaciones" />
-    <RegistroCalifications :evaluaciones="evaluacionesG" :fecha="fecha" />
   </v-container>
 </template>
 
 <script>
 export default {
-  props: ["registro"],
+  props : ["registro"],
   layout: "logged",
   data() {
     return {
       curso: {},
       evaluaciones: [],
-      evaluacionesG: [],
-      fecha: true,
     };
   },
-  async update() {
+  async beforeMount() {
+    this.findCurso();
+    this.getEvaluations();
+    this.getEvaluationsGeneral();
+  },
+  async created() {
     this.findCurso();
     this.getEvaluations();
     this.getEvaluationsGeneral();
@@ -70,7 +72,7 @@ export default {
           console.log(error);
           this.registro = [];
         });
-    }
+    },
   },
 };
 </script>

@@ -1,6 +1,12 @@
 <template>
   <div>
-    <CoursesCurso :cursos="cursos" :curso="curso" :evaluaciones="evaluaciones" :todasEvaluaciones="todasEvaluaciones" :promedioE="promedioE"/>
+    <CoursesCurso
+      :cursos="cursos"
+      :curso="curso"
+      :evaluaciones="evaluaciones"
+      :todasEvaluaciones="todasEvaluaciones"
+    />
+
   </div>
 </template>
 <script>
@@ -14,14 +20,14 @@ export default {
       id: "",
       evaluaciones: [],
       todasEvaluaciones: [],
-      promedioE: 0,
+      fecha: true,
     };
   },
-  async update() {
+  created() {
     this.findCurso();
     this.getEvaluations();
     this.getAllEvaluations();
-  },    
+  },
 
   methods: {
     async findCurso() {
@@ -33,7 +39,8 @@ export default {
       this.$axios
         .post(
           process.env.baseUrl +
-            "evaluations/user/"+  this.$route.params.id +
+            "evaluations/user/" +
+            this.$route.params.id +
             "/",
           {
             token: localStorage.getItem("token"),
@@ -42,7 +49,6 @@ export default {
         .then((res) => {
           var evaluaciones = res.data.evaluations;
           this.evaluaciones = evaluaciones;
-          this.promedioE = evaluaciones[0].promedio
           console.log(evaluaciones);
         })
         .catch((error) => {
@@ -50,11 +56,12 @@ export default {
           this.registro = [];
         });
     },
-    async getAllEvaluations(){
-        this.$axios
+    async getAllEvaluations() {
+      this.$axios
         .post(
           process.env.baseUrl +
-            "evaluations/promedio/course/"+  this.$route.params.id +
+            "evaluations/promedio/course/" +
+            this.$route.params.id +
             "/",
           {
             token: localStorage.getItem("token"),

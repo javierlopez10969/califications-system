@@ -4,7 +4,11 @@
     <v-flex d-flex>
       <v-layout wrap>
         <v-flex md6 v-for="(item, i) in cursos" :key="i">
-          <v-card class="mt-8 text-left" max-width="470" v-if="item.activate === true">
+          <v-card
+            class="mt-8 text-left"
+            max-width="470"
+            v-if="item.activate === true"
+          >
             <v-img
               src="https://uvirtual.usach.cl/moodle/theme/image.php/eguru/theme/1640116840/cs02/no-image"
               height="150px"
@@ -22,7 +26,7 @@
                 >
                   Datos del curso
                 </v-btn>
-                <v-btn
+                <v-btn v-if="item.can_edit===true"
                   color="orange lighten-2"
                   text
                   :to="'/cursos/admin/' + item.id.toString()"

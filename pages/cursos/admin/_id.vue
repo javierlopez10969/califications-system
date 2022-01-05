@@ -1,9 +1,10 @@
 <template>
   <div>
-    <CoursesCurso :cursos="cursos" :curso="curso" />
-     <NuxtLink to="/cursos">Volver a mis cursos</NuxtLink>
+    <RegistroCurso :cursos="cursos" :curso="curso" />
+    <NuxtLink to="/cursos">Volver a mis cursos</NuxtLink>
     <SubjectAdminAlumnList :alumnos.sync="alumnos" />
 
+    <RegistroCalifications :evaluaciones="evaluacionesG" :fecha="fecha" />
   </div>
 </template>
 <script>
@@ -14,12 +15,14 @@ export default {
     return {
       curso: {},
       id: "",
-      alumnos : [],
+      alumnos: [],
+      evaluacionesG: [],
     };
   },
-  mounted() {
+  async beforeMount() {
     this.findCurso();
-    this.getAlumns()
+    this.getAlumns();
+    this.getEvaluationsGeneral();
   },
 
   methods: {
@@ -36,8 +39,29 @@ export default {
         .then((res) => {
           var alumns = res.data.alumns;
           this.alumnos = alumns;
-          console.log(alumns[0].email)
-          console.log("ALUMNOS :" +this.alumnos);
+          console.log(alumns[0].email);
+          console.log("ALUMNOS :" + this.alumnos);
+        })
+        .catch((error) => {
+          console.log(error);
+          this.registro = [];
+        });
+    },
+    async getEvaluationsGeneral() {
+      this.$axios
+        .post(
+          process.env.baseUrl +
+            "evaluations/course/" +
+            this.$route.params.id +
+            "/",
+          {
+            token: localStorage.getItem("token"),
+          }
+        )
+        .then((res) => {
+          var evaluaciones = res.data.evaluations;
+          this.evaluacionesG = evaluaciones;
+          console.log(evaluaciones);
         })
         .catch((error) => {
           console.log(error);

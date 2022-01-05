@@ -8,7 +8,8 @@
     />
     <v-main>
       <v-container>
-        <NuxtChild keep-alive
+        <NuxtChild
+          keep-alive
           :cursos="cursos"
           :registro="registro"
           :user="user"
@@ -25,6 +26,14 @@
 <script>
 export default {
   async beforeMount() {
+    if (localStorage.getItem("token") === null) {
+      this.$router.push("/login");
+    }
+    this.getUserData();
+    this.getCourses();
+    this.getHistoric();
+  },
+  async created() {
     if (localStorage.getItem("token") === null) {
       this.$router.push("/login");
     }
@@ -62,6 +71,7 @@ export default {
         var cursos = res.data.courses;
         this.registro = cursos;
         console.log(this.cursos);
+        localStorage.setItem("registro", this.registro);
       } catch (error) {
         console.log(error);
         this.registro = [];
@@ -93,6 +103,7 @@ export default {
       user: {},
       perfil: {},
       semestre: {},
+      permisos: {},
       clipped: false,
       drawer: false,
       fixed: false,
