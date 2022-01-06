@@ -1,8 +1,6 @@
 <template>
   <v-container class="pa-5">
-
-  
-    <v-row >
+    <v-row>
       <v-btn outlined depressed small @click="volver">
         <v-icon dark left> mdi-arrow-left</v-icon>
         Volver a cursos
@@ -106,6 +104,7 @@ export default {
   methods: {
     volver() {
       this.$router.go(-1);
+      this.$nuxt.refresh();
     },
   },
 };

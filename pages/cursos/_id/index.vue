@@ -1,24 +1,30 @@
 <template>
-  <div>
-    <CoursesCurso
+  <v-container fill-height fluid>
+    {{ this.$route.params.id }}
+    {{ curso }}
+    <!--
+          <CoursesCurso
       :cursos="cursos"
-      :curso="curso"
+      :curso.sync="curso"
       :evaluaciones="evaluaciones"
       :todasEvaluaciones="todasEvaluaciones"
       :promedioE="promedioE"
       :alumnos="alumnos"
     />
-  </div>
+    -->
+  </v-container>
 </template>
 <script>
+import Courses from "../../../components/Courses/Cursos.vue";
 export default {
-  name: "cursos",
+  components: { Courses },
+  ssr: false,
   layout: "logged",
-  props: ["cursos"],
+  props: ["semestre"],
   data() {
     return {
       curso: {},
-      id: "",
+      cursos: {},
       evaluaciones: [],
       todasEvaluaciones: [],
       evaluacionesG: [],
@@ -27,6 +33,7 @@ export default {
     };
   },
   created() {
+    this.getCourses();
     this.findCurso();
     this.getEvaluations();
     this.getAllEvaluations();
@@ -36,8 +43,42 @@ export default {
   methods: {
     async findCurso() {
       let id = +this.$route.params.id;
-      console.log(id);
       this.curso = this.cursos.find((curso) => curso.id === id);
+    },
+    async getCourses() {
+      try {
+        const res = await this.$axios.post(
+          process.env.baseUrl + "courses/list/",
+          { token: this.$auth.strategy.token.get().slice(7) }
+        );
+        var cursos = res.data.courses;
+        this.cursos = cursos;
+        this.findCurso();
+      } catch (error) {
+        console.log(error);
+        this.registro = [];
+      }
+    },
+    async getAllEvaluations() {
+      this.$axios
+        .post(
+          process.env.baseUrl +
+            "evaluations/promedio/course/" +
+            this.$route.params.id +
+            "/",
+          {
+            token: this.$auth.strategy.token.get().slice(7),
+          }
+        )
+        .then((res) => {
+          var todasEvaluaciones = res.data;
+          this.todasEvaluaciones = todasEvaluaciones;
+          console.log(todasEvaluaciones);
+        })
+        .catch((error) => {
+          console.log(error);
+          this.registro = [];
+        });
     },
     async getEvaluations() {
       this.$axios
@@ -53,29 +94,7 @@ export default {
         .then((res) => {
           var evaluaciones = res.data.evaluations;
           this.evaluaciones = evaluaciones;
-          this.promedioE = evaluaciones[0].promedio;
           console.log(evaluaciones);
-        })
-        .catch((error) => {
-          console.log(error);
-          this.registro = [];
-        });
-    },
-    async getAllEvaluations() {
-      this.$axios
-        .post(
-          process.env.baseUrl +
-            "evaluations/promedio/course/" +
-            this.$route.params.id +
-            "/",
-          {
-            token: localStorage.getItem("token"),
-          }
-        )
-        .then((res) => {
-          var todasEvaluaciones = res.data;
-          this.todasEvaluaciones = todasEvaluaciones;
-          console.log(todasEvaluaciones);
         })
         .catch((error) => {
           console.log(error);
@@ -106,7 +125,7 @@ export default {
             this.$route.params.id +
             "/",
           {
-            token: localStorage.getItem("token"),
+            token: this.$auth.strategy.token.get().slice(7),
           }
         )
         .then((res) => {
@@ -120,5 +139,8 @@ export default {
         });
     },
   },
+  updated (){
+    this.findCurso()
+  }
 };
 </script>

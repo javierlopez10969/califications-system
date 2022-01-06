@@ -7,7 +7,6 @@
           <v-card
             class="mt-8 text-left"
             max-width="470"
-            v-if="item.activate === true"
           >
             <v-img
               src="https://uvirtual.usach.cl/moodle/theme/image.php/eguru/theme/1640116840/cs02/no-image"
@@ -19,6 +18,9 @@
             <v-card-actions>
               <!--V -if si tiene roles para editar este curso-->
               <div v-if="item.activate === true">
+                <NuxtLink :to="'/cursos/' + item.id.toString()">
+                  <li>Datos del curso</li>
+                </NuxtLink>
                 <v-btn
                   color="orange lighten-2"
                   text

@@ -18,27 +18,20 @@
       </v-container>
     </v-main>
     <v-footer :absolute="!fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }} USACH</span>
+      <span
+        >&copy; {{ new Date().getFullYear()}}USACH</span
+      >
     </v-footer>
   </v-app>
 </template>
 
 <script>
 export default {
-  async beforeMount() {
-    if (localStorage.getItem("token") === null) {
+  created() {
+    if (this.$auth.strategy.token.get() === null) {
       this.$router.push("/login");
     }
     this.getUserData();
-    this.getCourses();
-    this.getHistoric();
-  },
-  async created() {
-    if (localStorage.getItem("token") === null) {
-      this.$router.push("/login");
-    }
-    this.getUserData();
-    this.getCourses();
     this.getHistoric();
   },
   methods: {
@@ -47,7 +40,7 @@ export default {
         const res = await this.$axios.post(
           process.env.baseUrl + "users/getuser/",
           {
-            token: localStorage.getItem("token"),
+            token:this.$auth.strategy.token.get().slice(7),
           }
         );
         console.log(res.data);
@@ -64,7 +57,7 @@ export default {
         const res = await this.$axios.post(
           process.env.baseUrl + "courses/list/",
           {
-            token: localStorage.getItem("token"),
+            token: this.$auth.strategy.token.get().slice(7),
             historic: true,
           }
         );
@@ -72,20 +65,6 @@ export default {
         this.registro = cursos;
         console.log(this.cursos);
         localStorage.setItem("registro", this.registro);
-      } catch (error) {
-        console.log(error);
-        this.registro = [];
-      }
-    },
-    async getCourses() {
-      try {
-        const res = await this.$axios.post(
-          process.env.baseUrl + "courses/list/",
-          { token: localStorage.getItem("token") }
-        );
-        var cursos = res.data.courses;
-        this.cursos = cursos;
-        console.log(this.cursos);
       } catch (error) {
         console.log(error);
         this.registro = [];

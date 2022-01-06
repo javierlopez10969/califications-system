@@ -38,7 +38,7 @@ export default {
             this.$route.params.id +
             "/",
           {
-            token: localStorage.getItem("token"),
+            token:this.$auth.strategy.token.get().slice(7),
           }
         )
         .then((res) => {
@@ -59,7 +59,7 @@ export default {
             this.$route.params.id +
             "/",
           {
-            token: localStorage.getItem("token"),
+            token:this.$auth.strategy.token.get().slice(7),
           }
         )
         .then((res) => {

@@ -7,6 +7,28 @@ export default {
   env: {
     baseUrl: process.env.BASE_URL || 'http://localhost:8000/'
   },
+  axios:{
+    baseUrl :  'http://localhost:8000/'
+  },
+
+  auth: {
+    strategies: {
+      local: {
+        token: {
+          property: 'token',
+          global: true,
+          // required: true,
+          // type: 'Bearer'
+        },
+        endpoints: {
+          login: { url: '/users/login/', method: 'post',propertyName : 'token' },
+          logout: { url: '/users/logout/', method: 'post' },
+          user: false
+        },
+        tokenType : ''
+      }
+    }
+  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - plataforma-notas',
@@ -48,9 +70,6 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/auth-next'
   ],
-
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {

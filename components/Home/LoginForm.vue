@@ -1,31 +1,41 @@
 <template>
-        <v-card width="500px" class="mx-auto mt-5 rounded-lg"  elevation="12">
-            <v-container class="pa-7">
-                <v-card-title class="justify-center">
-                    <p class="text-h4 text--primary">
-                        Iniciar sesión
-                    </p>
-                </v-card-title>
+  <v-card width="500px" class="mx-auto mt-5 rounded-lg" elevation="12">
+    <v-container class="pa-7">
+      <v-card-title class="justify-center">
+        <p class="text-h4 text--primary">Iniciar sesión</p>
+      </v-card-title>
 
-                <v-form ref="form" class="form-signin" @submit.prevent="login" lazy-validation>
-                        <v-text-field
-                            v-model="user.username"
-                            :rules="emailRules"
-                            label="Correo institucional"
-                            required
-                        ></v-text-field>
+      <v-form
+        ref="form"
+        class="form-signin"
+        @submit.prevent="userLogin"
+        lazy-validation
+      >
+        <v-text-field
+          v-model="user.username"
+          :rules="emailRules"
+          label="Correo institucional"
+          required
+        ></v-text-field>
 
-                    <v-text-field
-                        v-model="user.password"
-                        type="password"
-                        label="Clave"
-                    ></v-text-field>
-                    <v-btn type="submit" class="mb-10 mt-3 text-center" rounded color="secondary" light block>
-                        Ingresar
-                    </v-btn>
-                </v-form>
-            </v-container>
-        </v-card>
+        <v-text-field
+          v-model="user.password"
+          type="password"
+          label="Clave"
+        ></v-text-field>
+        <v-btn
+          type="submit"
+          class="mb-10 mt-3 text-center"
+          rounded
+          color="secondary"
+          light
+          block
+        >
+          Ingresar
+        </v-btn>
+      </v-form>
+    </v-container>
+  </v-card>
 </template>
 
 <script>
@@ -61,22 +71,17 @@ export default {
     resetValidation() {
       this.$refs.form.resetValidation();
     },
-    login() {
-      this.$axios.post(process.env.baseUrl + "users/login/", this.user).then(
-        (res) => {
-          //if successfull
-          if (res.status === 200) {
-            localStorage.setItem("token", res.data.token);
-            console.log(res.data);
-            this.$router.push({ path: "/landing" });
-          }
-        },
-        (err) => {
-          alert(err.response.data.error);
-          console.log(err.response);
-          this.error = err.response.data.mensaje;
-        }
-      );
+    async userLogin() {
+      try {
+        let response = await this.$auth.loginWith("local", {
+          data: this.user,
+        });
+        console.log(response);
+        localStorage.setItem("token", response.data.token);
+        this.$router.push({ path: "/landing" });
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };
