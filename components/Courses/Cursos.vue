@@ -18,9 +18,6 @@
             <v-card-actions>
               <!--V -if si tiene roles para editar este curso-->
               <div v-if="item.activate === true">
-                <NuxtLink :to="'/cursos/' + item.id.toString()">
-                  <li>Datos del curso</li>
-                </NuxtLink>
                 <v-btn
                   color="orange lighten-2"
                   text

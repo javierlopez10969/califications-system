@@ -1,17 +1,31 @@
 <template>
   <v-container fill-height fluid>
-    {{ this.$route.params.id }}
-    {{ curso }}
-    <!--
-          <CoursesCurso
-      :cursos="cursos"
-      :curso.sync="curso"
-      :evaluaciones="evaluaciones"
-      :todasEvaluaciones="todasEvaluaciones"
-      :promedioE="promedioE"
-      :alumnos="alumnos"
-    />
-    -->
+    <v-row>
+      <v-btn outlined depressed small @click="volver">
+        <v-icon dark left> mdi-arrow-left</v-icon>
+        Volver a cursos
+      </v-btn>
+    </v-row>
+    <div v-if="curso">
+      <div v-if="curso.can_edit === false">
+        <CoursesCurso
+          :cursos="cursos"
+          :curso="curso"
+          :evaluaciones="evaluaciones"
+          :todasEvaluaciones="todasEvaluaciones"
+          :promedioE="promedioE"
+          :alumnos="alumnos"
+        />
+      </div>
+      <div v-else>
+        <SubjectAdminCurso
+          :curso="curso"
+          :todasEvaluaciones="todasEvaluaciones"
+          :promedioE="promedioE"
+          :alumnos="alumnos"
+        />
+      </div>
+    </div>
   </v-container>
 </template>
 <script>
@@ -24,7 +38,7 @@ export default {
   data() {
     return {
       curso: {},
-      cursos: {},
+      cursos: [],
       evaluaciones: [],
       todasEvaluaciones: [],
       evaluacionesG: [],
@@ -41,6 +55,10 @@ export default {
   },
 
   methods: {
+    volver() {
+      this.$router.go(-1);
+      this.$nuxt.refresh();
+    },
     async findCurso() {
       let id = +this.$route.params.id;
       this.curso = this.cursos.find((curso) => curso.id === id);
@@ -139,8 +157,10 @@ export default {
         });
     },
   },
-  updated (){
-    this.findCurso()
-  }
+  computed: {
+    course() {
+      return this.cursos.find((curso) => curso.id === this.$route.params.id);
+    },
+  },
 };
 </script>

@@ -1,13 +1,8 @@
+<!--componente curso solo para el caso alumno-->
 <template>
   <v-container class="pa-5">
-    <v-row>
-      <v-btn outlined depressed small @click="volver">
-        <v-icon dark left> mdi-arrow-left</v-icon>
-        Volver a cursos
-      </v-btn>
-    </v-row>
     <!-- Caso de alumnos-->
-    <v-row class="mb-20" v-if="curso.can_edit === false">
+    <v-row class="mb-20">
       <v-col cols="5">
         <p class="text-h4 mb-1 text-left">Datos del curso</p>
         <v-divider> </v-divider>
@@ -75,15 +70,6 @@
           </template>
         </v-simple-table>
       </v-col>
-    </v-row>
-    <!-- Caso Profesor-->
-    <v-row v-else>
-      <SubjectAdminCurso
-        :curso="curso"
-        :todasEvaluaciones="todasEvaluaciones"
-        :promedioE="promedioE"
-        :alumnos="alumnos"
-      />
     </v-row>
   </v-container>
 </template>
