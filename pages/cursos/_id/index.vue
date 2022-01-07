@@ -7,7 +7,7 @@
       </v-btn>
     </v-row>
     <div v-if="curso">
-      <div v-if="curso.can_edit === false">
+      <div v-if="todasEvaluaciones.length === 0">
         <CoursesCurso
           :cursos="cursos"
           :curso="curso"
