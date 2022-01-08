@@ -1,8 +1,8 @@
 <template>
   <v-container fluid>
     <v-card>
-      <v-card-title class="text-center justify-center py-6">
-        <h1 class="font-weight-bold text-h2 basil--text">{{curso.name}}</h1>
+      <v-card-title class=" py-6">
+        <h4 class="font-weight-bold text-h5 basil--text">{{curso.name}}</h4>
         <!--
         <v-btn  dark color="indigo">
           <v-icon dark> mdi-plus </v-icon>

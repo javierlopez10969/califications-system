@@ -1,7 +1,6 @@
 <template>
   <v-container fill-height fluid>
     <v-col align="center">
-
       <CoursesCursos
         :cursos="cursos"
         :titulo="'Mis cursos  ' + semestre.semester + '-' + semestre.year"
@@ -15,6 +14,9 @@ export default {
   components: { Courses },
   layout: "logged",
   props: ["semestre"],
+  head: {
+    title: "Mis cursos",
+  },
   ssr: false,
   data() {
     return {
@@ -28,8 +30,7 @@ export default {
     async getCourses() {
       try {
         const res = await this.$axios.post(
-          process.env.baseUrl + "courses/list/",
-          { token: this.$auth.strategy.token.get().slice(7) }
+          process.env.baseUrl + "courses/list/"
         );
         var cursos = res.data.courses;
         this.cursos = cursos;
