@@ -6,8 +6,8 @@
         Volver a cursos
       </v-btn>
     </v-row>
-    <div v-if="curso">
-      <div v-if="todasEvaluaciones.length === 0">
+    <v-container fluid v-if="curso">
+      <div v-if="curso.can_edit === false">
         <CoursesCurso
           :cursos="cursos"
           :curso="curso"
