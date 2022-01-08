@@ -77,7 +77,6 @@ export default {
           data: this.user,
         });
         console.log(response);
-        localStorage.setItem("token", response.data.token);
         this.$router.push({ path: "/landing" });
       } catch (err) {
         console.log(err);
