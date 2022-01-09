@@ -32,7 +32,7 @@
             <template v-slot:input>
               <div class="mt-4 text-h6">Update Iron</div>
               <v-text-field
-                v-model="item.nota"
+                v-model="notaUpdate"
                 :rules="[max25chars]"
                 label="Edit"
                 single-line
@@ -51,6 +51,7 @@
         <v-btn v-bind="attrs" text @click="snack = false"> Close </v-btn>
       </template>
     </v-snackbar>
+    <h5>{{notaUpdate}}</h5>
   </v-card>
 </template>
 <script>
@@ -59,6 +60,7 @@ export default {
   data() {
     return {
       snack: false,
+      notaUpdate: 0,
       snackColor: "",
       snackText: "",
       max25chars: (v) => v.length <= 25 || "Input too long!",
