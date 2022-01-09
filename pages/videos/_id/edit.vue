@@ -10,6 +10,7 @@
 <script>
 export default {
   props: ["video"],
+  layout : "logged",
   head: {
     title: "Edit",
   },

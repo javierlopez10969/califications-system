@@ -28,7 +28,7 @@
 <script>
 export default {
   created() {
-    if (this.$auth.strategy.token.get() === null) {
+    if (this.$auth.strategy.token.get() === false) {
       this.$router.push("/login");
     }
     this.getUserData();
