@@ -64,13 +64,56 @@
                 <td>1.0</td>
                 <td>7.0</td>
                 <td>4.0</td>
-                <td>{{ evaluacion.fecha_de_entrega }}</td>
+                <td><v-icon @click="dialog = true">mdi-information</v-icon></td>
+                <v-dialog v-model="dialog" width="500">
+                    <v-card>
+                        <v-toolbar dark color="primary" class="mb-3">
+                            <v-toolbar-title>Información adicional</v-toolbar-title>
+                        </v-toolbar>
+
+                        <v-list-item>
+                            <v-list-item-content>
+                            <v-list-item-title>Nombre de la evaluación</v-list-item-title>
+                            <v-list-item-subtitle>{{evaluacion.nombre_evaluacion}}</v-list-item-subtitle>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item>
+                            <v-list-item-content>
+                            <v-list-item-title>Fecha</v-list-item-title>
+                            <v-list-item-subtitle>{{evaluacion.fecha_de_entrega}}</v-list-item-subtitle>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item>
+                            <v-list-item-content>
+                            <v-list-item-title>
+                                Apelar nota <v-icon @click="mostrarAp = !mostrarAp">mdi-information</v-icon>
+                            </v-list-item-title>
+                            <div v-if="mostrarAp">
+                                <v-list-item-subtitle class="mb-2" >
+                                    Motivo
+                                </v-list-item-subtitle>
+                                <v-textarea outlined :value="descripcionAp" class="mb-0"></v-textarea>
+                                <v-btn class="mt-0" outlined x-small color="primary">Enviar</v-btn>
+                            </div>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-divider></v-divider>
+                        <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="primary" text @click="dialog = false">
+                            Cerrar
+                        </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
               </tr>
             </tbody>
           </template>
         </v-simple-table>
       </v-col>
     </v-row>
+    <div class="text-center">
+    </div>
   </v-container>
 </template>
 
@@ -84,8 +127,11 @@ export default {
       { text: "Nota mínima", value: "min" },
       { text: "Nota máxima", value: "max" },
       { text: "Promedio", value: "prom" },
-      { text: "Fecha", value: "prom" },
+      { text: "", value: "prom" },
     ],
+    dialog: false,
+    descripcionAp: "",
+    mostrarAp: false,
   }),
   methods: {
     volver() {

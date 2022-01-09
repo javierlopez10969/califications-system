@@ -112,6 +112,7 @@ export default {
         .then((res) => {
           var evaluaciones = res.data.evaluations;
           this.evaluaciones = evaluaciones;
+          this.promedioE = evaluaciones[0].promedio;
           console.log(evaluaciones);
         })
         .catch((error) => {
