@@ -1,7 +1,9 @@
 <template>
   <div>
     <div>
-      <nuxt-child :curso="curso" />
+      <nuxt-child :curso="curso" :evaluaciones="evaluaciones" 
+      :todasEvaluaciones ="todasEvaluaciones" :evaluacionesG="evaluacionesG"
+      :alumnos="alumnos" :promedioE="promedioE" />
     </div>
   </div>
 </template>
@@ -114,10 +116,7 @@ export default {
           process.env.baseUrl +
             "evaluations/course/" +
             this.$route.params.id +
-            "/",
-          {
-            token: this.$auth.strategy.token.get().slice(7),
-          }
+            "/"
         )
         .then((res) => {
           var evaluaciones = res.data.evaluations;

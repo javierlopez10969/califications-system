@@ -47,23 +47,6 @@ export default {
         this.error = err.response.data.mensaje;
       }
     },
-    async getHistoric() {
-      try {
-        const res = await this.$axios.post(
-          process.env.baseUrl + "courses/list/",
-          {
-            historic: true,
-          }
-        );
-        var cursos = res.data.courses;
-        this.registro = cursos;
-        console.log(this.cursos);
-        localStorage.setItem("registro", this.registro);
-      } catch (error) {
-        console.log(error);
-        this.registro = [];
-      }
-    },
   },
   data() {
     return {

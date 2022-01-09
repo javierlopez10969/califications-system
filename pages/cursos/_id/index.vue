@@ -32,7 +32,8 @@
 
 <script>
 export default {
-  props: ["curso"],
+  props: ["curso","evaluaciones","todasEvaluaciones" ,"evaluacionesG"
+      ,"alumnos" ,"promedioE" ],
   methods: {
     volver() {
       this.$router.go(-1);
