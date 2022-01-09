@@ -18,7 +18,9 @@
       </v-container>
     </v-main>
     <v-footer :absolute="!fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }}USACH</span>
+      <span
+        >&copy; {{ new Date().getFullYear()}}USACH</span
+      >
     </v-footer>
   </v-app>
 </template>
@@ -36,7 +38,7 @@ export default {
     async getUserData() {
       try {
         const res = await this.$axios.get(
-          process.env.baseUrl + "users/get_tk/"
+          process.env.baseUrl + "users/get_tk/",
         );
         console.log(res.data);
         this.user = res.data.user;
@@ -45,6 +47,23 @@ export default {
       } catch (error) {
         console.log(error.response.data.error);
         this.error = err.response.data.mensaje;
+      }
+    },
+    async getHistoric() {
+      try {
+        const res = await this.$axios.post(
+          process.env.baseUrl + "courses/list/",
+          {
+            historic: true,
+          }
+        );
+        var cursos = res.data.courses;
+        this.registro = cursos;
+        console.log(this.cursos);
+        localStorage.setItem("registro", this.registro);
+      } catch (error) {
+        console.log(error);
+        this.registro = [];
       }
     },
   },
