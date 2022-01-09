@@ -21,9 +21,9 @@ export default {
           // type: 'Bearer'
         },
         endpoints: {
-          login: { url: '/users/login/', method: 'post',propertyName : 'token' },
-          logout: { url: '/users/logout/', method: 'post' },
-          user: false
+          login: { url: '/login/', method: 'post',propertyName : 'token' },
+          logout: { url: '/logout/', method: 'post' },
+          user:  { url: '/users/get_tk/', method: 'get' },
         },
         tokenType : ''
       }
@@ -32,7 +32,7 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - plataforma-notas',
-    title: 'plataforma-notas',
+    title: 'Plataforma de notas',
     htmlAttrs: {
       lang: 'en'
     },

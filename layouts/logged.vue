@@ -37,11 +37,8 @@ export default {
   methods: {
     async getUserData() {
       try {
-        const res = await this.$axios.post(
-          process.env.baseUrl + "users/getuser/",
-          {
-            token:this.$auth.strategy.token.get().slice(7),
-          }
+        const res = await this.$axios.get(
+          process.env.baseUrl + "users/get_tk/",
         );
         console.log(res.data);
         this.user = res.data.user;
@@ -57,7 +54,6 @@ export default {
         const res = await this.$axios.post(
           process.env.baseUrl + "courses/list/",
           {
-            token: this.$auth.strategy.token.get().slice(7),
             historic: true,
           }
         );
