@@ -80,6 +80,9 @@ export default {
         this.$router.push({ path: "/landing" });
       } catch (err) {
         console.log(err);
+        alert(err.response.data.status);
+        console.log(err.response);
+
       }
     },
   },

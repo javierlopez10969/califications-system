@@ -7,21 +7,24 @@
           Volver a cursos
         </v-btn>
       </v-row>
+      {{evaluacionesG}}
+      {{evaluaciones}}
+      {{todasEvaluaciones}}
       <v-container fluid v-if="curso">
         <div v-if="curso.can_edit === false">
+          <!-- caso alumnos -->
           <CoursesCurso
-            :cursos="cursos"
             :curso="curso"
             :evaluaciones="evaluaciones"
             :todasEvaluaciones="todasEvaluaciones"
             :promedioE="promedioE"
-            :alumnos="alumnos"
           />
         </div>
         <div v-if="curso.can_edit === true">
           <SubjectAdminCurso
             :curso="curso"
-            :todasEvaluaciones="todasEvaluaciones"
+            :todasEvaluaciones="evaluacionesG"
+            :evaluaciones="evaluacionesG"
             :promedioE="promedioE"
             :alumnos="alumnos"
           />
@@ -35,6 +38,7 @@
 <script>
 export default {
   props: ["curso"],
+  layout : "logged",
   head: {
     title: "Curso",
   },
@@ -48,9 +52,10 @@ export default {
     };
   },
   created() {
-    this.getEvaluations();
-    this.getAllEvaluations();
     this.getAlumns();
+    this.getEvaluationsGeneral();
+    this.getEvaluations();
+    this.getAll();
   },
   methods: {
     volver() {
@@ -58,16 +63,14 @@ export default {
       this.$nuxt.refresh();
     },
 
-    getAllEvaluations() {
+    //DATA : todasEvaluaciones
+    getAll() {
       this.$axios
         .post(
           process.env.baseUrl +
             "evaluations/promedio/course/" +
             this.$route.params.id +
             "/",
-          {
-            token: this.$auth.strategy.token.get().slice(7),
-          }
         )
         .then((res) => {
           var todasEvaluaciones = res.data;
@@ -79,13 +82,15 @@ export default {
           this.registro = [];
         });
     },
+    //DATA : evaluaciones
+    // Caso alumno : 
     getEvaluations() {
       this.$axios
         .post(
           process.env.baseUrl +
             "evaluations/user/" +
             this.$route.params.id +
-            "/",
+            "/"
         )
         .then((res) => {
           var evaluaciones = res.data.evaluations;
@@ -97,6 +102,7 @@ export default {
           this.registro = [];
         });
     },
+    //DATA : alumnos
     getAlumns() {
       this.$axios
         .get(
@@ -105,7 +111,6 @@ export default {
         .then((res) => {
           var alumns = res.data.alumns;
           this.alumnos = alumns;
-          console.log(alumns[0].email);
           console.log("ALUMNOS :" + this.alumnos);
         })
         .catch((error) => {
@@ -113,21 +118,19 @@ export default {
           this.registro = [];
         });
     },
+    // DATA : evaluacionesG
     getEvaluationsGeneral() {
       this.$axios
         .post(
           process.env.baseUrl +
             "evaluations/course/" +
             this.$route.params.id +
-            "/",
-          {
-            token: this.$auth.strategy.token.get().slice(7),
-          }
+            "/"
         )
         .then((res) => {
           var evaluaciones = res.data.evaluations;
           this.evaluacionesG = evaluaciones;
-          console.log(evaluaciones);
+          console.log("EVALUACIONES : ", evaluaciones);
         })
         .catch((error) => {
           console.log(error);
