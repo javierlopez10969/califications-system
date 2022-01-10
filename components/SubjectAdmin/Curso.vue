@@ -28,8 +28,9 @@
 
         <v-tab-item>
           <v-card flat>
+            <!-- Las evaluaciones junto a las clasificaciones -->
             <v-card-text>
-              <SubjectAdminAdm
+              <SubjectAdminEvaluations
                 :curso="curso"
                 :todasEvaluaciones="todasEvaluaciones"
                 :promedioE="promedioE"

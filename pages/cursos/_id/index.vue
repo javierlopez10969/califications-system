@@ -7,24 +7,20 @@
           Volver a cursos
         </v-btn>
       </v-row>
-      {{evaluacionesG}}
-      {{evaluaciones}}
-      {{todasEvaluaciones}}
       <v-container fluid v-if="curso">
         <div v-if="curso.can_edit === false">
           <!-- caso alumnos -->
           <CoursesCurso
             :curso="curso"
             :evaluaciones="evaluaciones"
-            :todasEvaluaciones="todasEvaluaciones"
             :promedioE="promedioE"
           />
         </div>
         <div v-if="curso.can_edit === true">
           <SubjectAdminCurso
             :curso="curso"
-            :todasEvaluaciones="evaluacionesG"
-            :evaluaciones="evaluacionesG"
+            :todasEvaluaciones="todasEvaluaciones"
+            :evaluacionesG="evaluacionesG"
             :promedioE="promedioE"
             :alumnos="alumnos"
           />
@@ -38,7 +34,7 @@
 <script>
 export default {
   props: ["curso"],
-  layout : "logged",
+  layout: "logged",
   head: {
     title: "Curso",
   },
@@ -52,38 +48,24 @@ export default {
     };
   },
   created() {
-    this.getAlumns();
-    this.getEvaluationsGeneral();
-    this.getEvaluations();
-    this.getAll();
+    //Caso alumnos
+    if (!this.curso.can_edit) {
+      this.getEvaluations();
+    }
+    if (this.curso.can_edit) {
+      //Caso profe
+      this.getAlumns();
+      this.getEvaluationsGeneral();
+      this.getAll();
+    }
   },
   methods: {
     volver() {
       this.$router.go(-1);
       this.$nuxt.refresh();
     },
-
-    //DATA : todasEvaluaciones
-    getAll() {
-      this.$axios
-        .post(
-          process.env.baseUrl +
-            "evaluations/promedio/course/" +
-            this.$route.params.id +
-            "/",
-        )
-        .then((res) => {
-          var todasEvaluaciones = res.data;
-          this.todasEvaluaciones = todasEvaluaciones;
-          console.log(todasEvaluaciones);
-        })
-        .catch((error) => {
-          console.log(error);
-          this.registro = [];
-        });
-    },
     //DATA : evaluaciones
-    // Caso alumno : 
+    // Caso alumno :
     getEvaluations() {
       this.$axios
         .post(
@@ -102,6 +84,27 @@ export default {
           this.registro = [];
         });
     },
+    //Caso profesor
+    //DATA : todasEvaluaciones
+    getAll() {
+      this.$axios
+        .get(
+          process.env.baseUrl +
+            "evaluations/promedio/course/" +
+            this.$route.params.id +
+            "/"
+        )
+        .then((res) => {
+          var todasEvaluaciones = res.data;
+          this.todasEvaluaciones = todasEvaluaciones;
+          console.log(todasEvaluaciones);
+        })
+        .catch((error) => {
+          console.log(error);
+          this.registro = [];
+        });
+    },
+
     //DATA : alumnos
     getAlumns() {
       this.$axios
@@ -121,7 +124,7 @@ export default {
     // DATA : evaluacionesG
     getEvaluationsGeneral() {
       this.$axios
-        .post(
+        .get(
           process.env.baseUrl +
             "evaluations/course/" +
             this.$route.params.id +

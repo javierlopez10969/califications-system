@@ -1,12 +1,12 @@
 <template>
   <div>
-    
     <nuxt-child :curso="curso" />
   </div>
 </template>
 
 <script>
 export default {
+  layout: "logged",
   head() {
     return {
       title: "",
@@ -14,8 +14,8 @@ export default {
     };
   },
   async asyncData({ $axios, params }) {
-    let response = await $axios.post('/courses/' + params.id +'/');
-    console
+    let response = await $axios.post("/courses/" + params.id + "/");
+    console;
     let curso = response.data.course;
     return {
       curso,

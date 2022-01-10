@@ -22,6 +22,7 @@
           v-model="user.password"
           type="password"
           label="Clave"
+          required
         ></v-text-field>
         <v-btn
           type="submit"
@@ -80,7 +81,7 @@ export default {
         this.$router.push({ path: "/landing" });
       } catch (err) {
         console.log(err);
-        alert(err.response.data.status);
+        alert(err.response.data.error);
         console.log(err.response);
 
       }

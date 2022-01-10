@@ -1,3 +1,4 @@
+<!-- Componente que muestra las evaluaciones junto a las calificaciones-->
 <template>
   <v-container fluid>
     <v-card color="basil">
@@ -23,7 +24,7 @@
 
       <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
         <v-tab v-for="prueba in todasEvaluaciones" :key="prueba.id">
-          {{ prueba.evaluacion }}
+          {{ prueba.evaluacion.name }} 
         </v-tab>
       </v-tabs>
       <v-tabs-items v-model="tab">
