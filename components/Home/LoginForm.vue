@@ -42,7 +42,7 @@
 <script>
 export default {
   data: () => ({
-    valid: true,
+    valid: false,
     user: {
       username: "",
       password: "",
@@ -51,14 +51,9 @@ export default {
       (v) => !!v || "Rut es necesario",
       (v) => v.length <= 12 || "Rut Incompleto",
     ],
-    nameRules: [
-      (v) => !!v || "Name is required",
-      (v) => v.length <= 10 || "Name must be less than 10 characters",
-    ],
-    email: "",
     emailRules: [
       (v) => !!v || "E-mail is required",
-      (v) => /.+@.+/.test(v) || "E-mail must be valid",
+      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
     ],
   }),
 
@@ -83,7 +78,6 @@ export default {
         console.log(err);
         alert(err.response.data.error);
         console.log(err.response);
-
       }
     },
   },

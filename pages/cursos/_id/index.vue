@@ -33,11 +33,8 @@
 
 <script>
 export default {
-  props: ["curso"],
+  props: ["curso", "alumnos", ],
   layout: "logged",
-  head: {
-    title: "Curso",
-  },
   data() {
     return {
       evaluaciones: [],
@@ -54,7 +51,6 @@ export default {
     }
     if (this.curso.can_edit) {
       //Caso profe
-      this.getAlumns();
       this.getEvaluationsGeneral();
       this.getAll();
     }
@@ -104,23 +100,6 @@ export default {
           this.registro = [];
         });
     },
-
-    //DATA : alumnos
-    getAlumns() {
-      this.$axios
-        .get(
-          process.env.baseUrl + "courses/alumns/" + this.$route.params.id + "/"
-        )
-        .then((res) => {
-          var alumns = res.data.alumns;
-          this.alumnos = alumns;
-          console.log("ALUMNOS :" + this.alumnos);
-        })
-        .catch((error) => {
-          console.log(error);
-          this.registro = [];
-        });
-    },
     // DATA : evaluacionesG
     getEvaluationsGeneral() {
       this.$axios
@@ -137,7 +116,6 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          this.registro = [];
         });
     },
   },

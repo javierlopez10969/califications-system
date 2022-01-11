@@ -20,7 +20,7 @@ export default {
   ssr: false,
   data() {
     return {
-      cursos: {},
+      cursos: [],
     };
   },
   created() {
@@ -37,7 +37,7 @@ export default {
         console.log(this.cursos);
       } catch (error) {
         console.log(error);
-        this.registro = [];
+        this.cursos = [];
       }
     },
   },

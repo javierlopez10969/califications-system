@@ -6,24 +6,23 @@
         <h1 class="font-weight-bold text-h2 basil--text">Evaluaciones</h1>
         <v-spacer></v-spacer>
 
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              color="white"
-              class="text--primary"
-              fab
-              v-bind="attrs"
-              v-on="on"
-            >
-              <v-icon>mdi-plus</v-icon>
-            </v-btn>
-          </template>
-          <span> Agregar evaluación</span>
-        </v-tooltip>
+        <SubjectAdminDialogButton
+          :modo="`evaluacion`"
+          :icon="`mdi-plus`"
+          :span="`Agregar Evaluación`"
+        />
 
         <v-file-input accept="image/*" label="File input"></v-file-input>
       </v-card-title>
-
+      <v-divider></v-divider>
+      <v-spacer></v-spacer>
+      <v-spacer></v-spacer>
+      <v-spacer></v-spacer>
+      <div v-if="todasEvaluaciones.length === 0">
+        <h1 class="font-weight-bold text-h4 text-center basil--text">
+          No hay evaluaciones
+        </h1>
+      </div>
       <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
         <v-tab v-for="prueba in todasEvaluaciones" :key="prueba.id">
           {{ prueba.evaluacion.name }}
