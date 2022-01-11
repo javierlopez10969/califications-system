@@ -23,6 +23,7 @@
             :evaluacionesG="evaluacionesG"
             :promedioE="promedioE"
             :alumnos="alumnos"
+            :coordinaciones="coordinaciones"
           />
         </div>
         <div v-else>Ha ocurrido un error al mostrar el curso</div>
@@ -33,14 +34,14 @@
 
 <script>
 export default {
-  props: ["curso", "alumnos", ],
+  props: ["curso", "alumnos"],
   layout: "logged",
   data() {
     return {
       evaluaciones: [],
       todasEvaluaciones: [],
       evaluacionesG: [],
-      alumnos: [],
+      coordinaciones: [],
       promedioE: 0,
     };
   },
@@ -53,6 +54,7 @@ export default {
       //Caso profe
       this.getEvaluationsGeneral();
       this.getAll();
+      this.getCoordinaciones();
     }
   },
   methods: {
@@ -116,6 +118,23 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+        });
+    },
+    getCoordinaciones() {
+      this.$axios
+        .get(
+          process.env.baseUrl +
+            "courses/coursecordination/" +
+            this.$route.params.id +
+            "/"
+        )
+        .then((res) => {
+          this.coordinaciones = res.data.coordinaciones;
+          console.log("COORDINACIONES ::::" + this.coordinaciones);
+        })
+        .catch((error) => {
+          console.log(error);
+          this.coordinaciones = [];
         });
     },
   },

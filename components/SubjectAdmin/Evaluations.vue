@@ -10,6 +10,7 @@
           :modo="`evaluacion`"
           :icon="`mdi-plus`"
           :span="`Agregar Evaluación`"
+          :coordinaciones="coordinaciones"
         />
 
         <v-file-input accept="image/*" label="File input"></v-file-input>
@@ -59,7 +60,13 @@
 
 <script>
 export default {
-  props: ["curso", "evaluaciones", "todasEvaluaciones", "promedioE"],
+  props: [
+    "curso",
+    "evaluaciones",
+    "todasEvaluaciones",
+    "promedioE",
+    "coordinaciones",
+  ],
   data() {
     return {
       tab: null,

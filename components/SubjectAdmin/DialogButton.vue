@@ -42,12 +42,7 @@
     </v-dialog>
 
     <!-- Caso agregar evaluacion-->
-    <v-dialog
-      v-if="modo === `evaluacion`"
-      v-model="dialog"
-      scrollable
-      max-width="400px"
-    >
+    <v-dialog v-if="modo === `evaluacion`" v-model="dialog" max-width="600px">
       <template #activator="{ on: onMenu }">
         <v-tooltip bottom>
           <template #activator="{ on: onTooltip }">
@@ -67,8 +62,8 @@
       <v-card>
         <v-card-title>Seleccione a usuario agregar</v-card-title>
         <v-divider></v-divider>
-        <v-card-text style="height: 300px">
-          <SubjectAdminEvaluationForm />
+        <v-card-text style="height: 500px">
+          <SubjectAdminEvaluationForm :coordinaciones="coordinaciones" />
         </v-card-text>
         <v-divider></v-divider>
       </v-card>
@@ -78,7 +73,7 @@
 
 <script>
 export default {
-  props: ["modo", "icon", "span"],
+  props: ["modo", "icon", "span", "coordinaciones"],
   data() {
     return {
       dialogm1: "",

@@ -1,8 +1,8 @@
 <template>
   <v-container fluid>
     <v-card>
-      <v-card-title class=" py-6">
-        <h4 class="font-weight-bold text-h5 basil--text">{{curso.name}}</h4>
+      <v-card-title class="py-6">
+        <h4 class="font-weight-bold text-h5 basil--text">{{ curso.name }}</h4>
         <!--
         <v-btn  dark color="indigo">
           <v-icon dark> mdi-plus </v-icon>
@@ -35,6 +35,7 @@
                 :todasEvaluaciones="todasEvaluaciones"
                 :promedioE="promedioE"
                 :alumnos="alumnos"
+                :coordinaciones="coordinaciones"
               />
             </v-card-text>
           </v-card>
@@ -58,7 +59,14 @@
 
 <script>
 export default {
-  props: ["curso", "evaluaciones", "todasEvaluaciones", "promedioE", "alumnos"],
+  props: [
+    "curso",
+    "evaluaciones",
+    "todasEvaluaciones",
+    "promedioE",
+    "alumnos",
+    "coordinaciones",
+  ],
   data() {
     return {
       tab: null,
