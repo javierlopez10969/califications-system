@@ -109,7 +109,7 @@ export default {
     getAlumns() {
       this.$axios
         .get(
-          process.env.baseUrl + "courses/users/" + this.$route.params.id + "/"
+          process.env.baseUrl + "courses/alumns/" + this.$route.params.id + "/"
         )
         .then((res) => {
           var alumns = res.data.alumns;

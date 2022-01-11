@@ -42,7 +42,7 @@
         <v-tab-item>
           <v-card flat>
             <v-card-text>
-              <SubjectAdminAlumnList :alumnos="alumnos" />
+              <SubjectAdminAlumnList :alumnos="alumnos" :modo="1" />
             </v-card-text>
           </v-card>
         </v-tab-item>

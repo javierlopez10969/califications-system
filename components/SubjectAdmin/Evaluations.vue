@@ -20,11 +20,13 @@
           </template>
           <span> Agregar evaluación</span>
         </v-tooltip>
+
+        <v-file-input accept="image/*" label="File input"></v-file-input>
       </v-card-title>
 
       <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
         <v-tab v-for="prueba in todasEvaluaciones" :key="prueba.id">
-          {{ prueba.evaluacion.name }} 
+          {{ prueba.evaluacion.name }}
         </v-tab>
       </v-tabs>
       <v-tabs-items v-model="tab">
