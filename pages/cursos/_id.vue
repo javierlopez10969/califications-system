@@ -1,73 +1,51 @@
 <template>
   <div>
-    <CoursesCurso :cursos="cursos" :curso="curso" :evaluaciones="evaluaciones" :todasEvaluaciones="todasEvaluaciones"/>
+    <nuxt-child
+      :curso="curso"
+      :alumnos="alumnos"
+      :todasEvaluaciones="todasEvaluaciones"
+      :coordinaciones="coordinaciones"
+    />
   </div>
 </template>
+
 <script>
 export default {
-  name: "cursos",
   layout: "logged",
-  props: ["cursos"],
-  data() {
+  head() {
     return {
-      curso: {},
-      id: "",
-      evaluaciones: [],
-      todasEvaluaciones: [],
+      title: "",
+      titleTemplate: `%s ${this.curso.name}`,
     };
   },
-  created() {
-    this.findCurso();
-    this.getEvaluations();
-    this.getAllEvaluations();
-  },    
+  async asyncData({ $axios, params }) {
+    let res = await $axios.post("/courses/" + params.id + "/");
+    let curso = res.data.course;
+    //Caso alumno
 
-  methods: {
-    async findCurso() {
-      let id = +this.$route.params.id;
-      console.log(id);
-      this.curso = this.cursos.find((curso) => curso.id === id);
-    },
-    async getEvaluations() {
-      this.$axios
-        .post(
-          process.env.baseUrl +
-            "evaluations/user/"+  this.$route.params.id +
-            "/",
-          {
-            token: localStorage.getItem("token"),
-          }
-        )
-        .then((res) => {
-          var evaluaciones = res.data.evaluations;
-          this.evaluaciones = evaluaciones;
-          console.log(evaluaciones);
-        })
-        .catch((error) => {
-          console.log(error);
-          this.registro = [];
-        });
-    },
-    async getAllEvaluations(){
-        this.$axios
-        .post(
-          process.env.baseUrl +
-            "evaluations/promedio/course/"+  this.$route.params.id +
-            "/",
-          {
-            token: localStorage.getItem("token"),
-          }
-        )
-        .then((res) => {
-          var todasEvaluaciones = res.data;
-          this.todasEvaluaciones = todasEvaluaciones;
-          console.log(todasEvaluaciones);
-        })
-        .catch((error) => {
-          console.log(error);
-          this.registro = [];
-        });
-    },
+    //Caso administrador del curso
+
+    // Usuarios inscritos en el curso
+    if (curso.can_edit) {
+      res = await $axios.get("courses/alumns/" + params.id + "/");
+      var alumnos = res.data.alumns;
+      res = await $axios.get("evaluations/promedio/course/" + params.id + "/");
+      var todasEvaluaciones = res.data;
+      res = await $axios.get("courses/coursecordination/" + params.id + "/");
+      var coordinaciones = res.data.coordinaciones;
+    }else{
+      alumnos = null;
+      todasEvaluaciones = null;
+      coordinaciones = null;
+    }
+    return {
+      curso,
+      alumnos,
+      todasEvaluaciones,
+      coordinaciones,
+    };
   },
 };
 </script>
+<style lang="scss" scoped>
+</style>

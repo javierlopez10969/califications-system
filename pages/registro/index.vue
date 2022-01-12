@@ -1,10 +1,11 @@
 <template>
-  <v-container  fluid>
-    <p class="text-h4 text--primary mb-0 text-left">Mi registro historico</p>
-    <v-spacer></v-spacer>
-    <v-col align="center">
-      <CoursesCursos :cursos="registro" />
-    </v-col>
+  <v-container fill-height fluid>
+    <v-container v-if="registro.length === 0">
+      <p class="text-h4 text--primary mb-0 text-left">Sin cursos.</p>
+    </v-container>
+    <v-container v-else>
+      <RegistroCursos :cursos="registro" />
+    </v-container>
   </v-container>
 </template>
 <script>

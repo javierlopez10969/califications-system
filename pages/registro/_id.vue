@@ -1,24 +1,25 @@
 <template>
   <v-container>
-    <CoursesCurso :curso="curso" />
-    <CoursesCalifications :evaluaciones="evaluaciones" />
-    <CoursesCalifications :evaluaciones="evaluacionesG" :fecha="fecha" />
+    <RegistroCurso :curso="curso" :evaluaciones="evaluaciones"/>
   </v-container>
 </template>
 
 <script>
 export default {
-  props: ["registro"],
+  props : ["registro"],
   layout: "logged",
   data() {
     return {
       curso: {},
       evaluaciones: [],
-      evaluacionesG : [],
-      fecha: true,
     };
   },
-  beforeMount() {
+  async beforeMount() {
+    this.findCurso();
+    this.getEvaluations();
+    this.getEvaluationsGeneral();
+  },
+  async created() {
     this.findCurso();
     this.getEvaluations();
     this.getEvaluationsGeneral();
@@ -37,7 +38,7 @@ export default {
             this.$route.params.id +
             "/",
           {
-            token: localStorage.getItem("token"),
+            token:this.$auth.strategy.token.get().slice(7),
           }
         )
         .then((res) => {
@@ -58,7 +59,7 @@ export default {
             this.$route.params.id +
             "/",
           {
-            token: localStorage.getItem("token"),
+            token:this.$auth.strategy.token.get().slice(7),
           }
         )
         .then((res) => {

@@ -9,83 +9,65 @@
     <v-main>
       <v-container>
         <NuxtChild
+          keep-alive
           :cursos="cursos"
           :registro="registro"
           :user="user"
-          :semestre.sync="semestre"
+          :semestre="semestre"
         />
       </v-container>
     </v-main>
     <v-footer :absolute="!fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }} USACH</span>
+      <span>&copy; {{ new Date().getFullYear() }}USACH</span>
     </v-footer>
   </v-app>
 </template>
 
 <script>
 export default {
-  async fetch() {},
-  beforeMount() {
-    if (localStorage.getItem("token") === null) {
+  created() {
+    if (this.$auth.strategy.token.get() === false) {
       this.$router.push("/login");
     }
     this.getUserData();
-    this.getCourses();
     this.getHistoric();
+  },
+  async asyncData({ $axios, params }) {
+    if (this.$auth.strategy.token.get() === false) {
+      this.$router.push("/login");
+    }
   },
   methods: {
     async getUserData() {
-      this.$axios
-        .post(process.env.baseUrl + "users/getuser/", {
-          token: localStorage.getItem("token"),
-        })
-        .then(
-          (res) => {
-            //if successfull
-            if (res.status === 200) {
-              console.log(res.data);
-              this.user = res.data.user;
-              this.perfil = res.data.perfil;
-              this.semestre = res.data.semester;
-            }
-          },
-          (err) => {
-            //alert(err.response.data.error);
-            console.log(err.response.data.error);
-            this.error = err.response.data.mensaje;
-          }
+      try {
+        const res = await this.$axios.get(
+          process.env.baseUrl + "users/get_tk/"
         );
+        console.log(res.data);
+        this.user = res.data.user;
+        this.perfil = res.data.perfil;
+        this.semestre = res.data.semester;
+      } catch (error) {
+        console.log(error.response.data.error);
+        this.error = err.response.data.mensaje;
+      }
     },
     async getHistoric() {
-      this.$axios
-        .post(process.env.baseUrl + "courses/list/", {
-          token: localStorage.getItem("token"),
-          historic: true,
-        })
-        .then((res) => {
-          var cursos = res.data.courses;
-          this.registro = cursos;
-          console.log(this.cursos);
-        })
-        .catch((error) => {
-          console.log(error);
-          this.registro = [];
-        });
-    },
-    async getCourses() {
-      this.$axios
-        .post(process.env.baseUrl + "courses/list/", {
-          token: localStorage.getItem("token"),
-        })
-        .then((res) => {
-          var cursos = res.data.courses;
-          this.cursos = cursos;
-          console.log(this.cursos);
-        })
-        .catch((error) => {
-          this.cursos = [];
-          console.log(error);
-        });
+      try {
+        const res = await this.$axios.post(
+          process.env.baseUrl + "courses/list/",
+          {
+            historic: true,
+          }
+        );
+        var cursos = res.data.courses;
+        this.registro = cursos;
+        console.log(this.cursos);
+        localStorage.setItem("registro", this.registro);
+      } catch (error) {
+        console.log(error);
+        this.registro = [];
+      }
     },
   },
   data() {
@@ -99,6 +81,7 @@ export default {
       user: {},
       perfil: {},
       semestre: {},
+      permisos: {},
       clipped: false,
       drawer: false,
       fixed: false,

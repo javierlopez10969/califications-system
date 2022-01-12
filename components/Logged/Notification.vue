@@ -1,25 +1,26 @@
-
 <template>
   <div>
     <v-menu offset-y>
-      <template v-slot:activator="{ on, attrs }">
-        
-        <v-btn v-bind="attrs" v-on="on" icon>
-          <v-badge
-            :content="notifications.length"
-            :value="notifications.length"
-            color="green"
-            overlap
-          >
-            <v-icon large> mdi-bell </v-icon>
-          </v-badge>
-        </v-btn>
+      <template #activator="{ on: onMenu }">
+        <v-tooltip bottom>
+          <template #activator="{ on: onTooltip }">
+            <v-btn v-on="{ ...onMenu, ...onTooltip }" icon>
+              <v-badge
+                :content="notifications.length"
+                :value="notifications.length"
+                color="green"
+                overlap
+              >
+                <v-icon large> mdi-bell </v-icon>
+              </v-badge>
+            </v-btn>
+          </template>
+
+          <span>Notificaciones</span>
+        </v-tooltip>
       </template>
-      <v-list>
-        <v-list-item v-for="(item, index) in items" :key="index">
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
+
+      <LoggedNotificationList />
     </v-menu>
   </div>
 </template>
@@ -78,3 +79,9 @@ export default {
   },
 };
 </script>
+<style>
+/* This is for documentation purposes and will not be needed in your application */
+#create .v-speed-dial {
+  position: absolute;
+}
+</style>
