@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{todasEvaluaciones}}
     <nuxt-child
       :curso="curso"
       :alumnos="alumnos"
@@ -24,16 +25,19 @@ export default {
     let curso = res.data.course;
     //Caso alumno
 
-
     //Caso administrador del curso
 
     // Usuarios inscritos en el curso
     res = await $axios.get("courses/alumns/" + params.id + "/");
     var alumnos = res.data.alumns;
+    res = $axios.get("evaluations/promedio/course/"+params.id +"/")
+    var todasEvaluaciones = res.data;
+    console.log("EVALUACIONES : "+todasEvaluaciones)
 
     return {
       curso,
       alumnos,
+      todasEvaluaciones
     };
   },
 };

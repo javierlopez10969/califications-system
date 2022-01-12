@@ -105,21 +105,14 @@ export default {
         alert("Seleccione una coordinacion");
       } else {
         this.$axios
-          .post(
-            process.env.baseUrl +
-              "courses/usercordination/" +
-              idCoord +
-              "/" +
-              idAlumno +
-              "/"
-          )
+          .post("courses/usercordination/" + idCoord + "/" + idAlumno + "/")
           .then((res) => {
             alert("Alumno agregado");
+            this.$nuxt.refresh()
           })
           .catch((error) => {
             alert(error);
             console.log(error);
-            this.coordinaciones = [];
           });
       }
     },
@@ -137,7 +130,8 @@ export default {
               "/"
           )
           .then((res) => {
-            alert(res.data.message);
+            alert("Alumno borrado con exito");
+            this.$nuxt.refresh();
           })
           .catch((error) => {
             alert(error);
