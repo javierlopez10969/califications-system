@@ -26,7 +26,9 @@
             :coordinaciones="coordinaciones"
           />
         </div>
+        <!--
         <div v-else>Ha ocurrido un error al mostrar el curso</div>
+        -->
       </v-container>
     </v-container>
   </div>
@@ -75,6 +77,7 @@ export default {
         .then((res) => {
           var evaluaciones = res.data.evaluations;
           this.evaluaciones = evaluaciones;
+          this.promedioE = evaluaciones[0].promedio;
           console.log(evaluaciones);
         })
         .catch((error) => {
