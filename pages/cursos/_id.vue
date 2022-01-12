@@ -1,32 +1,51 @@
 <template>
   <div>
-    Tus cursos son :
-    <v-spacer></v-spacer>
-    <CoursesCursos :cursos="cursos" />
-    <v-spacer></v-spacer>
-    <CoursesCurso :curso="curso" />
+    <nuxt-child
+      :curso="curso"
+      :alumnos="alumnos"
+      :todasEvaluaciones="todasEvaluaciones"
+      :coordinaciones="coordinaciones"
+    />
   </div>
 </template>
+
 <script>
 export default {
-  name: "cursos",
   layout: "logged",
-  props: ["cursos"],
-  data() {
+  head() {
     return {
-      curso: {},
-      id: "",
+      title: "",
+      titleTemplate: `%s ${this.curso.name}`,
     };
   },
-  updated() {
-    this.findCurso();
-  },
-  methods: {
-    findCurso() {
-      let id = +this.$route.params.id;
-      console.log(id);
-      this.curso = this.cursos.find((curso) => curso.id === id);
-    },
+  async asyncData({ $axios, params }) {
+    let res = await $axios.post("/courses/" + params.id + "/");
+    let curso = res.data.course;
+    //Caso alumno
+
+    //Caso administrador del curso
+
+    // Usuarios inscritos en el curso
+    if (curso.can_edit) {
+      res = await $axios.get("courses/alumns/" + params.id + "/");
+      var alumnos = res.data.alumns;
+      res = await $axios.get("evaluations/promedio/course/" + params.id + "/");
+      var todasEvaluaciones = res.data;
+      res = await $axios.get("courses/coursecordination/" + params.id + "/");
+      var coordinaciones = res.data.coordinaciones;
+    }else{
+      alumnos = null;
+      todasEvaluaciones = null;
+      coordinaciones = null;
+    }
+    return {
+      curso,
+      alumnos,
+      todasEvaluaciones,
+      coordinaciones,
+    };
   },
 };
 </script>
+<style lang="scss" scoped>
+</style>
