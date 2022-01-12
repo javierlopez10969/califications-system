@@ -98,19 +98,11 @@ export default {
         try {
           this.evaluacion["coordination"] = this.select.id;
           this.evaluacion["ponderation"] = this.evaluacion["ponderation"]/100;
-          alert( this.select.id)
-          let res = await this.$axios.post("evaluations/evaluations-list/",
-            this.evaluacion
-          );
-          var evaluaciones = res.data.evaluations;
-          this.evaluaciones = evaluaciones;
-          console.log(evaluaciones);
+          res = await this.$axios.post("evaluations/evaluations-list/",this.evaluacion);
 
-          console.log(response);
-          this.$router.push({ path: "/landing" });
         } catch (err) {
           console.log(err);
-          alert(err.response.data.error);
+          alert("F en el chat");
           console.log(err.response);
         }
       }

@@ -1,7 +1,7 @@
 <template>
   <v-card>
-    <v-card-title
-      >Calificaciones de los alumnos
+    <v-card-title>
+      Calificaciones de los alumnos
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -30,10 +30,10 @@
           >
             <div>{{ item.nota }}</div>
             <template v-slot:input>
-              <div class="mt-4 text-h6">Update Iron</div>
+              <div class="mt-4 text-h6">Cambiar nota</div>
               <v-text-field
-                v-model="notaUpdate"
-                :rules="[max25chars]"
+                v-model="item.nota"
+                :rules="notaRules"
                 label="Edit"
                 single-line
                 counter
@@ -51,7 +51,7 @@
         <v-btn v-bind="attrs" text @click="snack = false"> Close </v-btn>
       </template>
     </v-snackbar>
-    <h5>{{notaUpdate}}</h5>
+    <h5>{{ notaUpdate }}</h5>
   </v-card>
 </template>
 <script>
@@ -65,12 +65,22 @@ export default {
       snackText: "",
       max25chars: (v) => v.length <= 25 || "Input too long!",
       search: "",
+      notaRules: [
+        (v) => !!v || "Nota requerida",
+        (v) => (v >= 1 && v <= 7) || "La nota debe ser mayor que 1 y menor que 7",
+      ],
       headers: [
         {
-          text: "Estudiante",
+          text: "Nombre",
           align: "start",
-          value: "usuario",
+          value: "perfil.first_name",
         },
+        {
+          text: "Apellido",
+          align: "start",
+          value: "perfil.last_name",
+        },
+
         { text: "Notas", value: "nota" },
       ],
     };

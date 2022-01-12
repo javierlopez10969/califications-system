@@ -5,7 +5,6 @@
       <v-card-title class="py-6">
         <h1 class="font-weight-bold text-h2 basil--text">Evaluaciones</h1>
         <v-spacer></v-spacer>
-
         <SubjectAdminDialogButton
           :modo="`evaluacion`"
           :icon="`mdi-plus`"

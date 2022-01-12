@@ -99,7 +99,6 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          this.registro = [];
         });
     },
     // DATA : evaluacionesG
