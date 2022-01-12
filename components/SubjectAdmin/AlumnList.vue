@@ -91,7 +91,7 @@
 
 <script>
 export default {
-  props: ["alumnos", "modo", "coordinaciones"],
+  props: ["alumnos", "modo"],
   data() {
     return {
       coordinaciones: [],

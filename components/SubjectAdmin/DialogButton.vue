@@ -14,7 +14,9 @@
               color="white"
               class="text--primary"
               fab
+              btn
               v-on="{ ...onMenu, ...onTooltip }"
+              icon
             >
               <v-icon> {{ icon }} </v-icon>
             </v-btn>
@@ -58,7 +60,6 @@
           <span> {{ span }}</span>
         </v-tooltip>
       </template>
-
       <v-card>
         <v-card-title>Seleccione a usuario agregar</v-card-title>
         <v-divider></v-divider>
@@ -68,12 +69,41 @@
         <v-divider></v-divider>
       </v-card>
     </v-dialog>
+
+    <!-- Apelacion-->
+    <v-dialog v-if="modo === `apelacion`" v-model="dialog" max-width="600px">
+      <template #activator="{ on: onMenu }">
+        <v-tooltip bottom>
+          <template #activator="{ on: onTooltip }">
+            <v-btn
+              color="white"
+              class="text--primary"
+              fab
+              icon
+              btn
+              v-on="{ ...onMenu, ...onTooltip }"
+            >
+              <v-icon> {{ icon }} </v-icon>
+            </v-btn>
+          </template>
+          <span> {{ span }}</span>
+        </v-tooltip>
+      </template>
+      <v-card>
+        <v-card-title>Respuesta a apelación</v-card-title>
+        <v-divider></v-divider>
+        <v-card-text style="height: 500px">
+          <SubjectAdminApelacionForm :apelacion="apelacion" />
+        </v-card-text>
+        <v-divider></v-divider>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["modo", "icon", "span", "coordinaciones"],
+  props: ["modo", "icon", "span", "coordinaciones", "apelacion"],
   data() {
     return {
       dialogm1: "",
@@ -89,7 +119,6 @@ export default {
       .then((res) => {
         var alumns = res.data.alumns;
         this.alumnos = alumns;
-        console.log("ALUMNOS :" + this.alumnos);
       })
       .catch((error) => {
         console.log(error);

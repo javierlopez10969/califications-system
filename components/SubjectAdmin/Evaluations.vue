@@ -35,7 +35,7 @@
             <v-card-text>
               <!--TAB VERTICAL-->
               <v-tabs vertical>
-                <v-tab v-for="seccion in headTab" :key="seccion">
+                <v-tab v-for="seccion in headTab" :key="seccion.id">
                   {{ seccion.text }}
                 </v-tab>
 

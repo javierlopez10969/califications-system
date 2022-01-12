@@ -14,7 +14,7 @@
         <v-text-field
           v-model="user.username"
           :rules="emailRules"
-          :prepend-icon="mdi - email"
+          :prepend-icon="`mdi-email`"
           label="Correo institucional"
           required
         ></v-text-field>
@@ -24,6 +24,7 @@
           type="password"
           label="Clave"
           required
+          :prepend-icon="'mdi-key'"
         ></v-text-field>
         <v-btn
           type="submit"

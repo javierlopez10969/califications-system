@@ -110,6 +110,7 @@ export default {
   },
   data: () => ({
     valid: false,
+    select : {},
     evaluacion: {
         "name": '',
         "evaluation_date": null,

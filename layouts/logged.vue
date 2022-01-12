@@ -18,9 +18,7 @@
       </v-container>
     </v-main>
     <v-footer :absolute="!fixed" app>
-      <span
-        >&copy; {{ new Date().getFullYear()}}USACH</span
-      >
+      <span>&copy; {{ new Date().getFullYear() }}USACH</span>
     </v-footer>
   </v-app>
 </template>
@@ -34,11 +32,16 @@ export default {
     this.getUserData();
     this.getHistoric();
   },
+  async asyncData({ $axios, params }) {
+    if (this.$auth.strategy.token.get() === false) {
+      this.$router.push("/login");
+    }
+  },
   methods: {
     async getUserData() {
       try {
         const res = await this.$axios.get(
-          process.env.baseUrl + "users/get_tk/",
+          process.env.baseUrl + "users/get_tk/"
         );
         console.log(res.data);
         this.user = res.data.user;

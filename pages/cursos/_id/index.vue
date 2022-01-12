@@ -22,6 +22,7 @@
             :todasEvaluaciones="todasEvaluaciones"
             :evaluacionesG="evaluacionesG"
             :promedioE="promedioE"
+            :evaluaciones="evaluaciones"
             :alumnos="alumnos"
             :coordinaciones="coordinaciones"
           />
@@ -36,14 +37,12 @@
 
 <script>
 export default {
-  props: ["curso", "alumnos"],
+  props: ["curso", "alumnos","coordinaciones","todasEvaluaciones"],
   layout: "logged",
   data() {
     return {
       evaluaciones: [],
-      todasEvaluaciones: [],
       evaluacionesG: [],
-      coordinaciones: [],
       promedioE: 0,
     };
   },
@@ -53,10 +52,7 @@ export default {
       this.getEvaluations();
     }
     if (this.curso.can_edit) {
-      //Caso profe
       this.getEvaluationsGeneral();
-      this.getAll();
-      this.getCoordinaciones();
     }
   },
   methods: {
@@ -85,25 +81,6 @@ export default {
           this.registro = [];
         });
     },
-    //Caso profesor
-    //DATA : todasEvaluaciones
-    getAll() {
-      this.$axios
-        .get(
-          process.env.baseUrl +
-            "evaluations/promedio/course/" +
-            this.$route.params.id +
-            "/"
-        )
-        .then((res) => {
-          var todasEvaluaciones = res.data;
-          this.todasEvaluaciones = todasEvaluaciones;
-          console.log(todasEvaluaciones);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
     // DATA : evaluacionesG
     getEvaluationsGeneral() {
       this.$axios
@@ -116,27 +93,9 @@ export default {
         .then((res) => {
           var evaluaciones = res.data.evaluations;
           this.evaluacionesG = evaluaciones;
-          console.log("EVALUACIONES : ", evaluaciones);
         })
         .catch((error) => {
           console.log(error);
-        });
-    },
-    getCoordinaciones() {
-      this.$axios
-        .get(
-          process.env.baseUrl +
-            "courses/coursecordination/" +
-            this.$route.params.id +
-            "/"
-        )
-        .then((res) => {
-          this.coordinaciones = res.data.coordinaciones;
-          console.log("COORDINACIONES ::::" + this.coordinaciones);
-        })
-        .catch((error) => {
-          console.log(error);
-          this.coordinaciones = [];
         });
     },
   },
