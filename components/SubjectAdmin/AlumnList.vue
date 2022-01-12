@@ -32,8 +32,14 @@
                 {{ item.coordination.name }} - {{ item.coordination.code }}
               </td>
 
-              <td>
-                <v-btn color="red" @click="desinscribir(item.coordination.id,item.id)"> Desinscribir</v-btn>
+              <td v-if="item.can_edit">Profesor</td>
+              <td v-else>
+                <v-btn
+                  color="red"
+                  @click="desinscribir(item.coordination.id, item.id)"
+                >
+                  Desinscribir</v-btn
+                >
               </td>
             </tr>
           </tbody>
@@ -85,7 +91,7 @@
 
 <script>
 export default {
-  props: ["alumnos", "modo"],
+  props: ["alumnos", "modo", "coordinaciones"],
   data() {
     return {
       coordinaciones: [],
@@ -150,7 +156,6 @@ export default {
         )
         .then((res) => {
           this.coordinaciones = res.data.coordinaciones;
-          console.log("COORDINACIONES ::::" + this.coordinaciones);
         })
         .catch((error) => {
           console.log(error);

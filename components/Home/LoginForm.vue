@@ -8,12 +8,13 @@
       <v-form
         ref="form"
         class="form-signin"
-        @submit.prevent="userLogin"
         lazy-validation
+        @submit.prevent="userLogin"
       >
         <v-text-field
           v-model="user.username"
           :rules="emailRules"
+          :prepend-icon="mdi - email"
           label="Correo institucional"
           required
         ></v-text-field>
@@ -58,26 +59,18 @@ export default {
   }),
 
   methods: {
-    validate() {
-      this.$refs.form.validate();
-    },
-    reset() {
-      this.$refs.form.reset();
-    },
-    resetValidation() {
-      this.$refs.form.resetValidation();
-    },
     async userLogin() {
-      try {
-        let response = await this.$auth.loginWith("local", {
-          data: this.user,
-        });
-        console.log(response);
-        this.$router.push({ path: "/landing" });
-      } catch (err) {
-        console.log(err);
-        alert(err.response.data.error);
-        console.log(err.response);
+      if (this.$refs.form.validate()) {
+        try {
+          let response = await this.$auth.loginWith("local", {
+            data: this.user,
+          });
+          this.$router.push({ path: "/landing" });
+        } catch (err) {
+          console.log(err);
+          alert(err.response.data.error);
+          console.log(err.response);
+        }
       }
     },
   },
