@@ -20,6 +20,9 @@
           </template>
         </v-textarea>
 
+        <div>Fecha de apelación : {{ apelacion.issue_date }}</div>
+        <div>Fecha de respuesta : {{ apelacion.answer_date }}</div>
+        <v-spacer> </v-spacer>
         <v-textarea
           counter
           label="Respuesta"

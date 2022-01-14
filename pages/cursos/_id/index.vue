@@ -1,12 +1,7 @@
 <template>
   <div>
     <v-container fluid>
-      <v-row>
-        <v-btn outlined depressed small @click="volver">
-          <v-icon dark left> mdi-arrow-left</v-icon>
-          Volver a cursos
-        </v-btn>
-      </v-row>
+      <ButtonVolver :text="`Volver a cursos`" />
       <v-container fluid v-if="curso">
         <div v-if="curso.can_edit === false">
           <!-- caso alumnos -->
@@ -37,7 +32,7 @@
 
 <script>
 export default {
-  props: ["curso", "alumnos","coordinaciones","todasEvaluaciones"],
+  props: ["curso", "alumnos", "coordinaciones", "todasEvaluaciones"],
   layout: "logged",
   data() {
     return {

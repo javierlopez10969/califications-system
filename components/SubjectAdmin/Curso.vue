@@ -3,11 +3,6 @@
     <v-card>
       <v-card-title class="py-6">
         <h4 class="font-weight-bold text-h5 basil--text">{{ curso.name }}</h4>
-        <!--
-        <v-btn  dark color="indigo">
-          <v-icon dark> mdi-plus </v-icon>
-          Agregar evaluación
-        </v-btn>-->
       </v-card-title>
       <v-tabs
         v-model="tab"
@@ -25,9 +20,13 @@
           <v-icon left> mdi-account-group </v-icon>
           Alumnos
         </v-tab>
+        <v-tab>
+          <v-icon left> mdi-chart-box </v-icon>
+          Stats
+        </v-tab>
 
         <v-tab-item>
-          <v-card flat>
+          <v-card>
             <!-- Las evaluaciones junto a las clasificaciones -->
             <v-card-text>
               <SubjectAdminEvaluations
@@ -41,7 +40,7 @@
           </v-card>
         </v-tab-item>
         <v-tab-item>
-          <v-card flat>
+          <v-card>
             <v-card-text>
               <SubjectAdminAlumnList
                 :alumnos="alumnos"
@@ -52,8 +51,10 @@
           </v-card>
         </v-tab-item>
         <v-tab-item>
-          <v-card flat>
-            <v-card-text> </v-card-text>
+          <v-card>
+            <v-card-text>
+              WENA PO
+            </v-card-text>
           </v-card>
         </v-tab-item>
       </v-tabs>

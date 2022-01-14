@@ -6,8 +6,10 @@
         <Nuxt />
       </v-container>
     </v-main>
-    <v-footer :absolute="!fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }} USACH</span>
+    <v-footer padless app color="secondary" >
+      <v-col class="text-center white--text" cols="12">
+        {{ new Date().getFullYear() }} — <strong>USACH</strong>
+      </v-col>
     </v-footer>
   </v-app>
 </template>

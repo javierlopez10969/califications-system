@@ -35,14 +35,6 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-
-      <!-- Mis cursos
-      <LoggedCourses :cursos="cursos" :name="'Cursos'" :drop="true" :link="'/cursos'"  />
-Registro 
-      <div v-if="registro !== []">
-        <LoggedCourses :cursos="registro" :name="'Registro'" :drop="false" :link="'/registro'"  />
-      </div>
--->
     </v-list>
   </div>
 </template>

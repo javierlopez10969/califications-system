@@ -36,22 +36,16 @@
         <p class="text-h4 mb-1 text-left">Notas</p>
         <v-divider> </v-divider>
         <v-container class="pa-0 mt-4">
-          <RegistroCalifications :evaluaciones = "evaluaciones"/>
+          <RegistroCalifications :evaluaciones="evaluaciones" />
         </v-container>
       </v-col>
-    </v-row>
-
-    <v-row class="text-center pa-15">
-      <v-btn outlined depressed block small @click="volver">
-        Volver a cursos
-      </v-btn>
     </v-row>
   </v-container>
 </template>
 
 <script>
 export default {
-  props: ["curso","evaluaciones", "fecha"],
+  props: ["curso", "evaluaciones", "fecha"],
   data: () => ({
     items: [
       { header: "Today" },
@@ -114,10 +108,5 @@ export default {
       },
     ],
   }),
-  methods: {
-    volver() {
-      this.$router.go(-1);
-    },
-  },
 };
 </script>

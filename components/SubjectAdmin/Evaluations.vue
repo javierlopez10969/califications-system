@@ -15,9 +15,6 @@
         <v-file-input accept="image/*" label="File input"></v-file-input>
       </v-card-title>
       <v-divider></v-divider>
-      <v-spacer></v-spacer>
-      <v-spacer></v-spacer>
-      <v-spacer></v-spacer>
       <div v-if="todasEvaluaciones.length === 0">
         <h1 class="font-weight-bold text-h4 text-center basil--text">
           No hay evaluaciones
@@ -48,6 +45,10 @@
                 <v-tab-item>
                   <SubjectAdminStats :prueba="prueba" />
                 </v-tab-item>
+                <!-- Datos curso-->
+                <v-tab-item>
+                  <SubjectAdminEvaluationInfo :prueba="prueba" :coordinaciones="coordinaciones"/>
+                </v-tab-item>
               </v-tabs>
             </v-card-text>
           </v-card>
@@ -73,6 +74,7 @@ export default {
       headTab: [
         { text: "Notas", value: "nota" },
         { text: "Estadisticas", value: "nota" },
+        { text: "Datos", value: "nota" },
       ],
       text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     };
