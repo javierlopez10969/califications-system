@@ -7,10 +7,32 @@ export default {
   env: {
     baseUrl: process.env.BASE_URL || 'http://localhost:8000/'
   },
+  axios:{
+    baseUrl :  'http://localhost:8000/'
+  },
+
+  auth: {
+    strategies: {
+      local: {
+        token: {
+          property: 'token',
+          global: true,
+          // required: true,
+          // type: 'Bearer'
+        },
+        endpoints: {
+          login: { url: '/login/', method: 'post',propertyName : 'token' },
+          logout: { url: '/logout/', method: 'post' },
+          user:  { url: '/users/get_tk/', method: 'get' },
+        },
+        tokenType : ''
+      }
+    }
+  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - plataforma-notas',
-    title: 'plataforma-notas',
+    title: 'Plataforma de notas',
     htmlAttrs: {
       lang: 'en'
     },
@@ -46,10 +68,8 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/auth-next'
   ],
-
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
@@ -66,8 +86,8 @@ export default {
           success: colors.green.accent3
         },
         light :{
-          primary: colors.purple,
-          secondary: colors.grey.darken1,
+          primary: "#FA7F36",
+          secondary: "#00487D",
           accent: colors.shades.black,
           error: colors.red.accent3,  
         }
