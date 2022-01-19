@@ -13,9 +13,8 @@
           <tr v-for="evaluacion in evaluaciones" :key="evaluacion.id">
             <td>{{ evaluacion.nombre_evaluacion }}</td>
             <td>{{ evaluacion.calificacion }}</td>
-            <td>1.0</td>
-            <td>7.0</td>
-            <td>4.0</td>
+            <td>{{evaluacion.min}}</td>
+            <td>{{evaluacion.max}}</td>
             <td>
               <v-icon
                 @click="
@@ -82,7 +81,8 @@
                 </v-list-item>
                 <v-list-item v-else>
                   <v-list-item-content>
-                    <v-list-item-title>Apelación en proceso</v-list-item-title>
+                    <v-list-item-title v-if="apelacion_actual.answer === ''">Apelación en proceso</v-list-item-title>
+                    <v-list-item-title v-else>Apelación Respondida</v-list-item-title>
                     <v-list-item-subtitle class="mb-1"
                       >Motivo:
                       {{ apelacion_actual.description }}</v-list-item-subtitle
@@ -152,7 +152,6 @@ export default {
       { text: "Mi nota", value: "nota" },
       { text: "Nota mínima", value: "min" },
       { text: "Nota máxima", value: "max" },
-      { text: "Promedio", value: "prom" },
       { text: "", value: "prom" },
     ],
     apelacion: {
@@ -177,7 +176,7 @@ export default {
       var apelacion = {
         calification: this.id_calificacion,
         description: this.descripcionAp,
-        issue_date: "2022-01-12",
+        issue_date: "2022-01-19",
       };
       this.confirmar = false;
       this.mostrarAp = false;

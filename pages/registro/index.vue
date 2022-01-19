@@ -1,6 +1,6 @@
 <template>
   <v-container fill-height fluid>
-    <v-container v-if="registro.length === 0">
+    <v-container v-if="registro == null">
       <p class="text-h4 text--primary mb-0 text-left">Sin cursos.</p>
     </v-container>
     <v-container v-else>

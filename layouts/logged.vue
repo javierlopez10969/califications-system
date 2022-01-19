@@ -62,7 +62,7 @@ export default {
             historic: true,
           }
         );
-        var cursos = res.data.courses;
+        var cursos = res.data.semesters;
         this.registro = cursos;
         console.log(this.cursos);
         localStorage.setItem("registro", this.registro);

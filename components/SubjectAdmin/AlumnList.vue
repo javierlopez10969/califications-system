@@ -15,7 +15,6 @@
           <thead>
             <tr>
               <th class="text-left">Nombre</th>
-              <th class="text-left">RUT</th>
               <th class="text-left">Coordinacion</th>
               <th class="text-left">Aciones</th>
             </tr>
@@ -24,9 +23,6 @@
             <tr v-for="item in alumnos" :key="item.id">
               <td>
                 {{ item.profile.first_name }} {{ item.profile.last_name }}
-              </td>
-              <td>
-                {{ item.profile.admision_date }}
               </td>
               <td>
                 {{ item.coordination.name }} - {{ item.coordination.code }}

@@ -68,7 +68,7 @@ export default {
         .then((res) => {
           var evaluaciones = res.data.evaluations;
           this.evaluaciones = evaluaciones;
-          this.promedioE = evaluaciones[0].promedio;
+          this.promedioE = evaluaciones[0].promedio_simple;
           console.log(evaluaciones);
         })
         .catch((error) => {
