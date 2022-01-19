@@ -1,8 +1,5 @@
 <template>
-  <div class="text-center">
-    Hola este es el sistema de notas.
+  <v-container fluid class="text-center">
     <HomeCarousel />
-    <v-spacer></v-spacer>
-
-  </div>
+  </v-container>
 </template>

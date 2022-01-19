@@ -17,14 +17,16 @@
           :prepend-icon="`mdi-email`"
           label="Correo institucional"
           required
+          :placeholder="'nombre.apellido@usach.cl'"
         ></v-text-field>
 
         <v-text-field
           v-model="user.password"
           type="password"
-          label="Clave"
+          label="Contraseña"
           required
           :prepend-icon="'mdi-key'"
+          :rules="passwordRules"
         ></v-text-field>
         <v-btn
           type="submit"
@@ -38,12 +40,21 @@
         </v-btn>
       </v-form>
     </v-container>
+    <v-snackbar v-model="snack" :timeout="3000" :color="snackColor">
+      {{ snackText }}
+      <template v-slot:action="{ attrs }">
+        <v-btn v-bind="attrs" text @click="snack = false"> Cerrar </v-btn>
+      </template>
+    </v-snackbar>
   </v-card>
 </template>
 
 <script>
 export default {
   data: () => ({
+    snack: false,
+    snackColor: "",
+    snackText: "",
     valid: false,
     user: {
       username: "",
@@ -53,9 +64,13 @@ export default {
       (v) => !!v || "Rut es necesario",
       (v) => v.length <= 12 || "Rut Incompleto",
     ],
+    passwordRules: [
+      (v) => !!v || "Contraseña necesaria",
+      (v) => v.length >= 8 || "Contraseña incorrecta",
+    ],
     emailRules: [
-      (v) => !!v || "E-mail is required",
-      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+      (v) => !!v || "El correo es requerido",
+      (v) => /.+@.+\..+/.test(v) || "El correo debe ser valido",
     ],
   }),
 
@@ -66,12 +81,22 @@ export default {
           let response = await this.$auth.loginWith("local", {
             data: this.user,
           });
+
+          this.snack = true;
+          this.snackColor = "succes";
+          this.snackText = "Ingreso exitoso";
           this.$router.push({ path: "/landing" });
         } catch (err) {
           console.log(err);
-          alert(err.response.data.error);
           console.log(err.response);
+          this.snack = true;
+          this.snackColor = "error";
+          this.snackText = "Usuario o contraseñas incorrectas";
         }
+      } else {
+        this.snack = true;
+        this.snackColor = "error";
+        this.snackText = "Ingrese los datos necesarios por favor";
       }
     },
   },

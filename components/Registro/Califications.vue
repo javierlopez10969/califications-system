@@ -8,7 +8,7 @@
       hide-default-footer
     >
       <template v-slot:[`item.calificacion`]="{ item }">
-        <v-chip :color="getColor(item.calificacion)">
+        <v-chip :color="getColor(item.calificacion)" class="white--text">
           {{ item.calificacion }}
         </v-chip>
       </template>

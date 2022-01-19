@@ -78,7 +78,7 @@
 </template>
 <script>
 export default {
-  props: ["notas","coordinaciones",],
+  props: ["notas", "coordinaciones"],
   data() {
     return {
       snack: false,
@@ -102,13 +102,22 @@ export default {
           align: "start",
           value: "perfil.last_name",
         },
-        { text: "Calificaión", value: "nota" },
+        { text: "Calificaión", align: "start", value: "nota" },
+
+        {
+          text: "Fecha efectiva de entrega",
+          value: "nota.efective_delivery_date",
+        },
+
         { text: "Apelación", value: "apelacion" },
       ],
     };
   },
   methods: {
     updateNota(calificacion) {
+      const today = new Date();
+      const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+      calificacion['efective_delivery_date'] = date;
       this.$axios
         .put(
           "evaluations/edit/calification/" +

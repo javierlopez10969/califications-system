@@ -1,12 +1,13 @@
 <template>
-  <v-container>
-    <RegistroCurso :curso="curso" :evaluaciones="evaluaciones"/>
+  <v-container fluid>
+    <ButtonVolver :text="`Volver a registro`" />
+    <RegistroCurso :curso="curso" :evaluaciones="evaluaciones" />
   </v-container>
 </template>
 
 <script>
 export default {
-  props : ["registro"],
+  props: ["registro"],
   layout: "logged",
   data() {
     return {
@@ -14,13 +15,12 @@ export default {
       evaluaciones: [],
     };
   },
-  async beforeMount() {
-    this.findCurso();
-    this.getEvaluations();
-    this.getEvaluationsGeneral();
+  async asyncData({ $axios, params }) {
+    let res = await $axios.get("/courses/" + params.id + "/");
+    let curso = res.data;
+    return { curso };
   },
   async created() {
-    this.findCurso();
     this.getEvaluations();
     this.getEvaluationsGeneral();
   },
@@ -38,7 +38,7 @@ export default {
             this.$route.params.id +
             "/",
           {
-            token:this.$auth.strategy.token.get().slice(7),
+            token: this.$auth.strategy.token.get().slice(7),
           }
         )
         .then((res) => {
@@ -59,7 +59,7 @@ export default {
             this.$route.params.id +
             "/",
           {
-            token:this.$auth.strategy.token.get().slice(7),
+            token: this.$auth.strategy.token.get().slice(7),
           }
         )
         .then((res) => {
